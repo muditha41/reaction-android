@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#605399</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ADA1E6</color>
+    <color name="white">#FFFF</color>
+    <color name="fontBlack">#000000</color>
+    <color name="fontGray">#A4A4A4</color>
+
+    <color name="background">#FFFFFF</color>
+    <color name="logoColor">#FAD06C</color>
+    <color name="lightGray">#EEEBFD</color>
+    <color name="fontLightGray">#A4A4A4</color>
+    <color name="butoon">#ADA1E6</color>
+</resources>

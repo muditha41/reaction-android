@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "832370787724",
+    "firebase_url": "https://appdb-aaf1c.firebaseio.com",
+    "project_id": "appdb-aaf1c",
+    "storage_bucket": "appdb-aaf1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832370787724:android:b5f5e46355f7f5b6c702a9",
+        "android_client_info": {
+          "package_name": "com.tech41.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832370787724-q4ag7e0bc4epua3u7skmiufa78646vrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK8U6zUjhp-c3-SkeTpy1VCWC5nDa5sfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832370787724-q4ag7e0bc4epua3u7skmiufa78646vrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

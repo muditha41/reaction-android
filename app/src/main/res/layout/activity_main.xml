@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="181dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:paddingLeft="250dp"
+         android:layout_gravity="right"
+        android:outlineAmbientShadowColor="@color/fontBlack"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/MenuStyle">
+
+
+        <ImageButton
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="50dp"
+            android:layout_width="25dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bell_icon"
+            />
+
+   <de.hdodenhof.circleimageview.CircleImageView
+
+       android:layout_width="45dp"
+       android:layout_height="45dp"
+       android:layout_marginBottom="40dp"
+       android:id="@+id/profile_image"/>
+
+
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My contacts"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/fontBlack"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:tabSelectedTextColor="@color/white"
+       app:tabIndicatorColor="@color/white"
+        app:tabTextColor="@color/fontBlack"
+        app:tabGravity="center" >
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:text="ftghfhfhf"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        />
+
+</com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
