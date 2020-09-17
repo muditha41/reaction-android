@@ -15,7 +15,7 @@
         <activity android:name=".StatusActivity"></activity>
         <activity android:name=".TestActivity" />
         <activity android:name=".MessageActivity" />
-        <activity android:name=".startActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,10 +24,10 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:parentActivityName=".startActivity" />
+            android:parentActivityName=".StartActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName=".startActivity" />
+            android:parentActivityName=".StartActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

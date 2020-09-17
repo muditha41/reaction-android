@@ -43,13 +43,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
     public void onBindViewHolder(@NonNull FriendAdapterVH holder, int position) {
 
         TblFriends tblFriends = friendsResposeList.get(position);
-        String username = tblFriends.getFriendId();
-        String second_text = tblFriends.getStatus();
-        String time_text = tblFriends.getLastUpdated();
+        String username = tblFriends.getFriend().getUserName();
+      //  String second_text = tblFriends.getStatus();
+      //  String time_text = tblFriends.getLastUpdated();
 
         holder.username.setText(username);
-        holder.second_text.setText(second_text);
-        holder.time_text.setText(time_text);
+     //   holder.secon d_text.setText(second_text);
+     //   holder.time_text.setText(time_text);
 
         ///////////////////////
         holder.itemView.setOnClickListener(new View.OnClickListener() {

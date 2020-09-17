@@ -1,7 +1,6 @@
 package com.tech41.app.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.tech41.app.MessageActivity;
 import com.tech41.app.Model.Chat;
-import com.tech41.app.Model.User;
 import com.tech41.app.R;
 
 import java.util.List;

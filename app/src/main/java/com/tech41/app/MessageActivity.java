@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tech41.app.Adapter.MessageAdapter;
 import com.tech41.app.Model.Chat;
-import com.tech41.app.Model.User;
 
-import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,25 +101,25 @@ public class MessageActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if(user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
-                }else {
-                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
-                }
-
-                readMessage(fuser.getUid(), userid,user.getImageURL());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                User user = dataSnapshot.getValue(User.class);
+//                username.setText(user.getUserName());
+////                if(user.getImageURL().equals("default")){
+////                    profile_image.setImageResource(R.mipmap.ic_launcher);
+////                }else {
+////                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
+////                }
+////
+////                readMessage(fuser.getUid(), userid,user.getImageURL());
+////            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
     }

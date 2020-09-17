@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tech41.app.Adapter.UserAdapter;
 import com.tech41.app.Model.Chat;
-import com.tech41.app.Model.User;
+import com.tech41.app.Model.user;
 import com.tech41.app.R;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ChatFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-    private List<User> muser;
+    private List<user> muser;
 
     FirebaseUser fuser;
     DatabaseReference reference;
@@ -90,12 +90,12 @@ public class ChatFragment extends Fragment {
                 muser.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
+                    user user = snapshot.getValue(com.tech41.app.Model.user.class);
 
                     for (String id: usersList){
                         if (user.getId().equals(id)){
                             if (muser.size() !=0){
-                                for (User userl :muser){
+                                for (com.tech41.app.Model.user userl :muser){
                                     if(!user.getId().equals(userl.getId())){
                                         muser.add(user);
                                     }

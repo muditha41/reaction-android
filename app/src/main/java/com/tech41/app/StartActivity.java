@@ -6,15 +6,18 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dmax.dialog.SpotsDialog;
 
 
-public class startActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     TextView logo;
+    Timer timer;
 
     @Override
     protected void onStart() {
@@ -26,18 +29,31 @@ public class startActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        logo = findViewById(R.id.mainlogo);
+        //Timer for app loading
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run(){
+                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
 
+              }
+            },2000);
+
+
+
+
+        logo = findViewById(R.id.mainlogo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 final AlertDialog dialog = new SpotsDialog.Builder()
-                        .setContext(startActivity.this)
+                        .setContext(StartActivity.this)
                         .build();
                          dialog.show();
 
-                startActivity(new Intent(startActivity.this, LoginActivity.class));
+                startActivity(new Intent(StartActivity.this, LoginActivity.class));
             }
         });
 

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,12 +51,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView signup_text;
     public static String usernameSave;
     public static String token;
+    SharedPreferences sharedPreferences;
+
+    TokenManager tokenManager;
+    private Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         signup_text = findViewById(R.id.signup_text);
         signup_text.setOnClickListener(new View.OnClickListener(){
@@ -70,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         Username = (EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
         button=(Button) findViewById(R.id.btn_login);
+
+
+        this.tokenManager = new TokenManager(LoginActivity.this);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +105,14 @@ public class LoginActivity extends AppCompatActivity {
                           //  Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
                                 JSONObject obj = new JSONObject(s);
                                 token = obj.getString("token");
-                                JWTUtils.decordeJWT(token);
 
+                               tokenManager.createLoginSession(token,JWTUtils.decordeJWT(token));
+
+//                                sharedPreferences = getSharedPreferences("SaveData",Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                editor.putString("token",token);
+//                                editor.putString("usernameSave", usernameSave);
+//                                editor.commit();
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -118,4 +134,6 @@ public class LoginActivity extends AppCompatActivity {
         compositeDisposable.clear();
         super.onStop();
     }
+
+
 }

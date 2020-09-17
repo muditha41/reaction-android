@@ -9,10 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
-import com.bumptech.glide.Glide;
+
 import com.tech41.app.MessageActivity;
 import com.tech41.app.Model.TblFriends;
-import com.tech41.app.Model.User;
 import com.tech41.app.R;
 
 import java.util.List;
@@ -37,19 +36,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final TblFriends user = friends.get(position);
-        holder.username.setText(user.getFriendId());
-        if(user.getProfileImage().equals("NULL")){
-            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
-;        } else{
-            Glide.with(mContext).load(user.getProfileImage()).into(holder.profile_image);
-        }
+        final TblFriends userFriends = friends.get(position);
+        holder.username.setText(userFriends.getFriend().getUserName());
+//        if(user.getProfileImage().equals("NULL")){
+//            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+//;        } else{
+//            Glide.with(mContext).load(user.getProfileImage()).into(holder.profile_image);
+//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("friendId",user.getFriendId());
+                intent.putExtra("friendId",userFriends.getFriendId());
                 mContext.startActivity(intent);
 
             }

@@ -4,31 +4,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class TblFriends {
 
-    private String userFirendId;
+    private int userFriendId;
     private String userId;
+    private user user;
     private String friendId;
-    private String status;
-    private String lastUpdated;
-    private String profileImage;
+    private user friend;
+    private String inviteStatus;
 
     public TblFriends() {
     }
 
-    public TblFriends(String userFirendId, String userId, String friendId, String status, String lastUpdated, String profileImage) {
-        this.userFirendId = userFirendId;
+    public TblFriends(int userFriendId, String userId, user user, String friendId, user friend, String inviteStatus, String text) {
+        this.userFriendId = userFriendId;
         this.userId = userId;
+        this.user = user;
         this.friendId = friendId;
-        this.status = status;
-        this.lastUpdated = lastUpdated;
-        this.profileImage = profileImage;
+        this.friend = friend;
+        this.inviteStatus = inviteStatus;
+        this.text = text;
     }
 
-    public String getUserFirendId() {
-        return userFirendId;
+    public int getUserFriendId() {
+        return userFriendId;
     }
 
-    public void setUserFirendId(String userFirendId) {
-        this.userFirendId = userFirendId;
+    public void setUserFriendId(int userFriendId) {
+        this.userFriendId = userFriendId;
     }
 
     public String getUserId() {
@@ -39,6 +40,14 @@ public class TblFriends {
         this.userId = userId;
     }
 
+    public com.tech41.app.Model.user getUser() {
+        return user;
+    }
+
+    public void setUser(com.tech41.app.Model.user user) {
+        this.user = user;
+    }
+
     public String getFriendId() {
         return friendId;
     }
@@ -47,31 +56,31 @@ public class TblFriends {
         this.friendId = friendId;
     }
 
-    public String getStatus() {
-        return status;
+    public com.tech41.app.Model.user getFriend() {
+        return friend;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFriend(com.tech41.app.Model.user friend) {
+        this.friend = friend;
     }
 
-    public String getLastUpdated() {
-        return lastUpdated;
+    public String getInviteStatus() {
+        return inviteStatus;
     }
 
-    public void setLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setInviteStatus(String inviteStatus) {
+        this.inviteStatus = inviteStatus;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public String getText() {
+        return text;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public void setText(String text) {
+        this.text = text;
     }
 
-@SerializedName("body")
+    @SerializedName("body")
     private String text;
 
 }
