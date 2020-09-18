@@ -32,6 +32,7 @@ package com.tech41.app;
 
         import com.google.android.material.tabs.TabLayout;
         import com.tech41.app.Fragments.NotificationFragment;
+        import com.tech41.app.Fragments.RequestsFragment;
         import com.tech41.app.Fragments.UsersFragment;
         import com.tech41.app.Model.Invitation;
         import com.tech41.app.Model.ResponseError;
@@ -104,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdpter viewPagerAdpter = new ViewPagerAdpter(getSupportFragmentManager());
 
-        //   viewPagerAdpter.addFragment(new ChatFragment(), "My contacts");
         viewPagerAdpter.addFragment(new UsersFragment(), "My contacts");
         viewPagerAdpter.addFragment(new NotificationFragment(), "Notification");
+        viewPagerAdpter.addFragment(new RequestsFragment(), "Requests");
 
         viewPager.setAdapter(viewPagerAdpter);
         tabLayout.setupWithViewPager(viewPager);
@@ -165,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addFriendDilaog(){
-
         //save data
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
         String token = preferences.getString("keyname","");

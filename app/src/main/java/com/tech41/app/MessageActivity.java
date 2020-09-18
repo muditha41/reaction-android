@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.tech41.app.Adapter.MessageAdapter;
+import com.tech41.app.Adapter.RequestsAdapter;
 import com.tech41.app.Model.Chat;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MessageActivity extends AppCompatActivity {
     ImageButton btn_send;
     EditText text_send;
 
-    MessageAdapter messageAdapter;
+    RequestsAdapter requestsAdapter;
     List<Chat> mchat;
 
     RecyclerView recyclerView;
@@ -150,8 +150,8 @@ public class MessageActivity extends AppCompatActivity {
                     chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
                         mchat.add(chat);
                     }
-                    messageAdapter = new MessageAdapter(MessageActivity.this,mchat,imageurl);
-                    recyclerView.setAdapter(messageAdapter);
+                 //   requestsAdapter = new RequestsAdapter(MessageActivity.this,mchat,imageurl);
+                    recyclerView.setAdapter(requestsAdapter);
                 }
             }
 

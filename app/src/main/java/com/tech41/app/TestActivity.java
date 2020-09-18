@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.tech41.app.Adapter.FriendsAdapter;
+import com.tech41.app.Adapter.RequestsAdapter;
 import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.TblRequests;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
 
@@ -31,7 +33,7 @@ public class TestActivity extends AppCompatActivity {
 
 Toolbar toolbar;
 RecyclerView recyclerView;
-FriendsAdapter friendsAdapter;
+RequestsAdapter requestsAdapter;
 SharedPreferences preferences;
 CarouselPicker imageCarousel;
 TextView tvSelected;
@@ -66,13 +68,13 @@ TextView tvSelected;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
-        friendsAdapter = new FriendsAdapter();
+        requestsAdapter = new RequestsAdapter();
 
-        getFriends();
+        getRequests();
 
     }
 
-    public void getFriends()
+    public void getRequests()
     {
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
         String token = preferences.getString("keyname","");
@@ -81,27 +83,25 @@ TextView tvSelected;
 
         Api api = RetrofitClient.getInstance().create(Api.class);
 
-        Call<List<TblFriends>> call = api.getfriendslist("Bearer "+token,id);
-        call.enqueue(new Callback<List<TblFriends>>() {
+        Call<List<TblRequests>> call = api.getRequestsList("Bearer "+token,id);
+        call.enqueue(new Callback<List<TblRequests>>() {
             @Override
-            public void onResponse(Call<List<TblFriends>> call, Response<List<TblFriends>> response) {
-
+            public void onResponse(Call<List<TblRequests>> call, Response<List<TblRequests>> response) {
                 if (response.isSuccessful())
                 {
-                    List<TblFriends> tblFriends = response.body();
-                    friendsAdapter.setData(tblFriends);
-                    recyclerView.setAdapter(friendsAdapter);
+                    List<TblRequests> tblRequests = response.body();
+                    requestsAdapter.setData(tblRequests);
+                    recyclerView.setAdapter(requestsAdapter);
 
-                //    Log.e("success",response.body().toString());
+                    //    Log.e("success",response.body().toString());
                 }
-
             }
 
             @Override
-            public void onFailure(Call<List<TblFriends>> call, Throwable t) {
-
+            public void onFailure(Call<List<TblRequests>> call, Throwable t) {
                 Log.e("failure",t.getLocalizedMessage());
             }
+
         });
     }
 }
