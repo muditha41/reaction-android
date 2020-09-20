@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UsersFragment extends Fragment {
+public class FriendsFragment extends Fragment {
     SharedPreferences preferences;
     RecyclerView recyclerView;
     FriendsAdapter friendsAdapter;
@@ -37,28 +37,17 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_users, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
 
-      //  refreshLayout();
-
         friendsAdapter = new FriendsAdapter();
 
         getFriends();
         return view;
-    }
-
-    private void refreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getFriends();
-            }
-        });
     }
 
     public void getFriends()

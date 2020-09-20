@@ -10,7 +10,6 @@ package com.tech41.app;
         import androidx.fragment.app.FragmentPagerAdapter;
         import androidx.viewpager.widget.ViewPager;
 
-        import android.app.Dialog;
         import android.content.Context;
         import android.content.Intent;
         import android.content.SharedPreferences;
@@ -25,40 +24,31 @@ package com.tech41.app;
         import android.view.View.OnClickListener;
         import android.widget.Button;
         import android.widget.EditText;
-        import android.widget.ImageView;
         import android.widget.LinearLayout;
         import android.widget.TextView;
-        import android.widget.Toast;
 
         import com.google.android.material.tabs.TabLayout;
         import com.tech41.app.Fragments.NotificationFragment;
         import com.tech41.app.Fragments.RequestsFragment;
-        import com.tech41.app.Fragments.UsersFragment;
+        import com.tech41.app.Fragments.FriendsFragment;
         import com.tech41.app.Model.Invitation;
         import com.tech41.app.Model.ResponseError;
-        import com.tech41.app.Model.TblFriends;
-        import com.tech41.app.Model.TblUser;
         import com.tech41.app.Remote.Api;
         import com.tech41.app.Remote.RetrofitClient;
 
-        import org.json.JSONException;
         import org.json.JSONObject;
 
         import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Observable;
         import java.util.Timer;
         import java.util.TimerTask;
 
         import de.hdodenhof.circleimageview.CircleImageView;
         import dmax.dialog.SpotsDialog;
-        import okhttp3.ResponseBody;
         import retrofit2.Call;
         import retrofit2.Callback;
         import retrofit2.Response;
 
         import static com.tech41.app.LoginActivity.usernameSave;
-        import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdpter viewPagerAdpter = new ViewPagerAdpter(getSupportFragmentManager());
 
-        viewPagerAdpter.addFragment(new UsersFragment(), "My contacts");
+        viewPagerAdpter.addFragment(new FriendsFragment(), "My contacts");
         viewPagerAdpter.addFragment(new NotificationFragment(), "Notification");
         viewPagerAdpter.addFragment(new RequestsFragment(), "Requests");
 

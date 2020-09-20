@@ -38,8 +38,6 @@ SharedPreferences preferences;
 CarouselPicker imageCarousel;
 TextView tvSelected;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,59 +47,20 @@ TextView tvSelected;
         imageCarousel = findViewById(R.id.imageCarousel);
         tvSelected = findViewById(R.id.tvSelectedItem);
 
-//        List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_happy));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_confused));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_in_love));
-//       imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_angry));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_crying));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_smart));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_smart));
-//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_wink));
-//
-//        CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
-//        imageCarousel.setAdapter(imageAdapter);
+        List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_happy));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_confused));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_in_love));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_angry));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_crying));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_smart));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_smart));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_wink));
 
-        toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recyclerview);
+        CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
+        imageCarousel.setAdapter(imageAdapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-
-        requestsAdapter = new RequestsAdapter();
-
-        getRequests();
 
     }
 
-    public void getRequests()
-    {
-        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-        String token = preferences.getString("keyname","");
-        String name = preferences.getString("name","");
-        String id = preferences.getString("id","");
-
-        Api api = RetrofitClient.getInstance().create(Api.class);
-
-        Call<List<TblRequests>> call = api.getRequestsList("Bearer "+token,id);
-        call.enqueue(new Callback<List<TblRequests>>() {
-            @Override
-            public void onResponse(Call<List<TblRequests>> call, Response<List<TblRequests>> response) {
-                if (response.isSuccessful())
-                {
-                    List<TblRequests> tblRequests = response.body();
-                    requestsAdapter.setData(tblRequests);
-                    recyclerView.setAdapter(requestsAdapter);
-
-                    //    Log.e("success",response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<TblRequests>> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
-            }
-
-        });
-    }
 }

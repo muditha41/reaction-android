@@ -108,12 +108,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                tokenManager.createLoginSession(token,JWTUtils.decordeJWT(token));
 
-//                                sharedPreferences = getSharedPreferences("SaveData",Context.MODE_PRIVATE);
-//                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                editor.putString("token",token);
-//                                editor.putString("usernameSave", usernameSave);
-//                                editor.commit();
-
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                             }

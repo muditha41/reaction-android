@@ -49,12 +49,15 @@
 
         <in.goodiebag.carouselpicker.CarouselPicker
             android:id="@+id/imageCarousel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:background="#CCC"
             app:items_visible="three"
             app:layout_constraintBottom_toTopOf="@+id/btn_request_send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSelectedItem"
-            tools:layout_editor_absoluteX="-16dp" />
+            app:layout_constraintVertical_bias="0.485" />
 
         <Button
             android:id="@+id/btn_request_send"

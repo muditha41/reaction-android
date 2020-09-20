@@ -26,6 +26,8 @@ import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dmax.dialog.SpotsDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText Username,Email, Password;
     Button button;
+    Timer timer;
 
     @Override
     protected void onStop() {
@@ -52,16 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
 
-        //    Toolbar toolbar = findViewById(R.id.toolbar);
-        //    setSupportActionBar(toolbar);
-        //    getSupportActionBar().setTitle("Register");
-         //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         api = RetrofitClient.getInstance().create(Api.class);
         Username = (EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
         Email = (EditText) findViewById(R.id.email) ;
-
 
         button=(Button) findViewById(R.id.btn_register);
 
@@ -84,13 +81,19 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void accept(String s) throws Exception {
                                 if (s.equals("Success")) {
-
                                     finish();
-
                                 }
-
                               Toast.makeText(RegisterActivity.this, "User created successfully!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
+
+                                timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    public void run(){
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish(); }
+                                },1000);
+
                             }
                         }, new Consumer<Throwable>() {
                             @Override

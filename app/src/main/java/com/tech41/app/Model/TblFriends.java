@@ -10,17 +10,19 @@ public class TblFriends {
     private String friendId;
     private user friend;
     private String inviteStatus;
+    private userStatus userStatus;
 
     public TblFriends() {
     }
 
-    public TblFriends(int userFriendId, String userId, user user, String friendId, user friend, String inviteStatus, String text) {
+    public TblFriends(int userFriendId, String userId, com.tech41.app.Model.user user, String friendId, com.tech41.app.Model.user friend, String inviteStatus, userStatus userStatus, String text) {
         this.userFriendId = userFriendId;
         this.userId = userId;
         this.user = user;
         this.friendId = friendId;
         this.friend = friend;
         this.inviteStatus = inviteStatus;
+        this.userStatus = userStatus;
         this.text = text;
     }
 
@@ -70,6 +72,14 @@ public class TblFriends {
 
     public void setInviteStatus(String inviteStatus) {
         this.inviteStatus = inviteStatus;
+    }
+
+    public userStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(userStatus userStatus) {
+        this.userStatus = userStatus;
     }
 
     public String getText() {
