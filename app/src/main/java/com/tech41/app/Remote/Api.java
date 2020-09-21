@@ -58,5 +58,9 @@ public interface Api {
     @PUT("/status/statuschecked")
     Call<ResponseError> statusChecked(@Header("Authorization")String authToken, @Body userStatusUpdate userStatusUpdate);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/status/statusupdate")
+    Call<ResponseError> statusUpdate(@Header("Authorization")String authToken, @Body userStatusUpdate userStatusUpdate);
+
 
 }

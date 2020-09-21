@@ -2,7 +2,9 @@ package com.tech41.app.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class user {
+import java.io.Serializable;
+
+public class user implements Serializable {
 
     private  String id;
     private String userName;

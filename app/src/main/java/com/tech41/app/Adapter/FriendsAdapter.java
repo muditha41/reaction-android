@@ -3,6 +3,7 @@ package com.tech41.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,7 @@ import com.tech41.app.StatusActivity;
 
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.util.Date;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,14 +70,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(context, StatusActivity.class);
-                intent.putExtra("friendId", tblFriends.getFriendId());
-                intent.putExtra("friendName", tblFriends.getFriend().getUserName());
-                intent.putExtra("friendStatus", tblFriends.getUserStatus().getFriendStatus().getName());
-                intent.putExtra("friendStatusImg", tblFriends.getUserStatus().getFriendStatus().getImage());
+               intent.putExtra("userFriend", tblFriends);
                 context.startActivity(intent);
 
-                //status state call
+                //status state check
                 preferences = context.getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
                 String token = preferences.getString("keyname","");
                 userStatusUpdate userStatusUpdate = new userStatusUpdate(

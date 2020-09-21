@@ -125,6 +125,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
         android:id="@+id/lottie_loading"
         android:layout_width="match_parent"
         android:layout_height="100dp"

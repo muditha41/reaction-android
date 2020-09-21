@@ -2,7 +2,9 @@ package com.tech41.app.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class userStatus {
+import java.io.Serializable;
+
+public class userStatus implements Serializable {
 
     private int userStatusId;
     private int statusId;

@@ -2,7 +2,9 @@ package com.tech41.app.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TblFriends {
+import java.io.Serializable;
+
+public class TblFriends implements Serializable {
 
     private int userFriendId;
     private String userId;
