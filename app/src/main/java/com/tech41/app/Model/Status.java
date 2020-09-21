@@ -3,41 +3,51 @@ package com.tech41.app.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class Status {
-    private int StatusId ;
-    private String Name ;
-    private String Image ;
+
+    private int statusId ;
+    private String name ;
+    private String image ;
 
     public Status() {
     }
 
-    public Status(int statusId, String name, String image) {
-        StatusId = statusId;
-        Name = name;
-        Image = image;
+    public Status(int statusId, String name, String image, String text) {
+        this.statusId = statusId;
+        this.name = name;
+        this.image = image;
+        this.text = text;
     }
 
     public int getStatusId() {
-        return StatusId;
+        return statusId;
     }
 
     public void setStatusId(int statusId) {
-        StatusId = statusId;
+        this.statusId = statusId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @SerializedName("body")

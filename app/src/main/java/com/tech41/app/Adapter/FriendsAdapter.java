@@ -75,20 +75,18 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
                 intent.putExtra("friendName", tblFriends.getFriend().getUserName());
                 intent.putExtra("friendStatus", tblFriends.getUserStatus().getFriendStatus().getName());
                 intent.putExtra("friendStatusImg", tblFriends.getUserStatus().getFriendStatus().getImage());
-
                 context.startActivity(intent);
 
+                //status state call
                 preferences = context.getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
                 String token = preferences.getString("keyname","");
                 userStatusUpdate userStatusUpdate = new userStatusUpdate(
                         tblFriends.getUserStatus().getUserStatusId(),
                         tblFriends.getUserId(),
                         tblFriends.getFriendId(),
-                        tblFriends.getUserStatus().getStatusId()
-                );
+                        tblFriends.getUserStatus().getStatusId());
 
                 Api api = RetrofitClient.getInstance().create(Api.class);
-
                 Call<ResponseError> call = api.statusChecked("Bearer "+token,userStatusUpdate);
                 call.enqueue(new Callback<ResponseError>() {
                     @Override
@@ -99,7 +97,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
                             try {
                                 JSONObject obj = new JSONObject(response.errorBody().string());
                                 String e = (obj.getString("message"));
-
                             } catch (Exception e) { }
                     }
 

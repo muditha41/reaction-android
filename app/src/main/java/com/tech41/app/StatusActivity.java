@@ -1,5 +1,6 @@
 package com.tech41.app;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -8,8 +9,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,20 +54,30 @@ public class StatusActivity extends AppCompatActivity {
 
         TextView friend_name = (TextView)findViewById(R.id.friend_name);
         TextView friend_status_id = (TextView)findViewById(R.id.friend_status_id);
+        TextView user_status_id = (TextView)findViewById(R.id.user_status_id);
         TextView friend_empty_status = (TextView)findViewById(R.id.friend_empty_status);
         LottieAnimationView friend_status_image = (LottieAnimationView)findViewById(R.id.friend_status_image);
+        ImageView friend_status_img =(ImageView)findViewById(R.id.friend_status_img);
 
         Intent intent = getIntent();
         friend_name.setText(intent.getStringExtra("friendName")+"'s  status");
+        user_status_id.setText("Only "+intent.getStringExtra("friendName")+" can see your status.");
         String friend_status = intent.getStringExtra("friendStatus");
+        String friend_status_img_url = intent.getStringExtra("friendStatusImg");
 
-       if(friend_status == null){
+
+       if(friend_status.equals("Empty")){
            friend_empty_status.setVisibility(TextView.VISIBLE);
            friend_status_image.setVisibility(LottieAnimationView.GONE);
            friend_status_id.setText(intent.getStringExtra("friendName")+" hasn't updated yet.");
        }else {
            friend_empty_status.setVisibility(TextView.GONE);
-           friend_status_image.setVisibility(LottieAnimationView.VISIBLE);
+           Resources res = getResources();
+           int resourceId = res.getIdentifier(
+                   friend_status_img_url , "drawable", getPackageName() );
+           int img = resourceId;
+           friend_status_img.setImageResource(resourceId);
+          // friend_status_image.setVisibility(LottieAnimationView.VISIBLE);
            friend_status_id.setText(intent.getStringExtra("friendStatus"));
        }
 
