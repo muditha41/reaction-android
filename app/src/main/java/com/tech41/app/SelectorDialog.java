@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tech41.app.Fragments.FriendsFragment;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.userStatusUpdate;
@@ -83,6 +84,8 @@ public class SelectorDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        statusUpdate();
+
                     }
                 });
 
@@ -99,7 +102,6 @@ public class SelectorDialog extends AppCompatDialogFragment {
         imageCarousel.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -137,47 +139,37 @@ public class SelectorDialog extends AppCompatDialogFragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-
-        btn_request_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-
-                userStatusUpdate userStatusUpdate = new userStatusUpdate(
-                        userfriend.getUserStatus().getUserStatusId(),
-                        userId,
-                        userfriend.getFriendId(),
-                 Integer.parseInt(tvSelectedItem.getText().toString()));
-
-                Api api = RetrofitClient.getInstance().create(Api.class);
-                Call<ResponseError> call = api.statusUpdate("Bearer "+token,userStatusUpdate);
-                call.enqueue(new Callback<ResponseError>() {
-                    @Override
-                    public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
-                        if (response.isSuccessful()) {
-
-                        }
-                        else
-                            try {
-                                JSONObject obj = new JSONObject(response.errorBody().string());
-                                String e = (obj.getString("message"));
-                            } catch (Exception e) { }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseError> call, Throwable t) {
-                        Log.e("Error",t.getLocalizedMessage());
-                    }
-                });
-            }
-        });
-
-
-
-
 
         return builder.create();
+    }
+
+    private void statusUpdate(){
+        userStatusUpdate userStatusUpdate = new userStatusUpdate(
+                userfriend.getUserStatus().getUserStatusId(),
+                userId, userfriend.getFriendId(),
+                Integer.parseInt(tvSelectedItem.getText().toString()));
+
+        Api api = RetrofitClient.getInstance().create(Api.class);
+        Call<ResponseError> call = api.statusUpdate("Bearer "+token,userStatusUpdate);
+        call.enqueue(new Callback<ResponseError>() {
+            @Override
+            public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
+                if (response.isSuccessful()) {
+
+                }
+                else
+                    try {
+                        JSONObject obj = new JSONObject(response.errorBody().string());
+                        String e = (obj.getString("message"));
+                    } catch (Exception e) { }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseError> call, Throwable t) {
+                Log.e("Error",t.getLocalizedMessage());
+            }
+        });
     }
 }

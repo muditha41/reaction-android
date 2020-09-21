@@ -46,7 +46,7 @@ public class RequestsFragment extends Fragment {
     SharedPreferences preferences;
     RecyclerView recyclerView;
     RequestsAdapter requestsAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -60,11 +60,21 @@ public class RequestsFragment extends Fragment {
 
         requestsAdapter = new RequestsAdapter();
 
-        getFriends();
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getRequests();
+                requestsAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        getRequests();
         return view;
     }
 
-    public void getFriends()
+    public void getRequests()
     {
         preferences  = getActivity().getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
         String token = preferences.getString("keyname","");

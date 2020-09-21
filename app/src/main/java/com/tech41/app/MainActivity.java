@@ -8,6 +8,7 @@ package com.tech41.app;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentManager;
         import androidx.fragment.app.FragmentPagerAdapter;
+        import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
         import androidx.viewpager.widget.ViewPager;
 
         import android.content.Context;
@@ -16,6 +17,7 @@ package com.tech41.app;
         import android.graphics.Color;
         import android.graphics.drawable.ColorDrawable;
         import android.os.Bundle;
+        import android.os.Handler;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.Menu;
@@ -67,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
 
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //add new friend button
-
         Button addfriendButton = findViewById(R.id.btn_addFriends);
         addfriendButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -135,8 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
+            return fragments.get(position); }
 
         @Override
         public int getCount() {
@@ -215,9 +214,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Call<ResponseError> call, Throwable t) {
                         Log.e("Error",t.getLocalizedMessage());
                     }
-
                 });
-
             }
         });
 // Add friend dialog box
@@ -226,8 +223,6 @@ public class MainActivity extends AppCompatActivity {
                 .create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
-
-
-
     }
+
 }

@@ -2,6 +2,7 @@ package com.tech41.app.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class userStatusUpdate {
     private int UserStatusId;
     private String UserId;

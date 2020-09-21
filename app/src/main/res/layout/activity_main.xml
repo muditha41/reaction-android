@@ -54,9 +54,6 @@
        android:layout_height="45dp"
        android:id="@+id/profile_image"/>
 
-
-
-
     </androidx.appcompat.widget.Toolbar>
 
     <TextView

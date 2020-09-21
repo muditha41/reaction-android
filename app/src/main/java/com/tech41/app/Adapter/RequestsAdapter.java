@@ -56,7 +56,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public RequestsAdapter.FriendAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -122,6 +121,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
             @Override
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
+
                 }
                 else
                     try {
@@ -138,4 +138,5 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         });
 
     }
+
 }

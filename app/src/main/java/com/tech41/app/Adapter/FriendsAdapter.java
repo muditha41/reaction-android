@@ -3,6 +3,7 @@ package com.tech41.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,4 +129,5 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
             profile_image = itemView.findViewById(R.id.profile_image);
         }
     }
+
 }

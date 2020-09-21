@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,11 @@ public class FriendsFragment extends Fragment {
     SharedPreferences preferences;
     RecyclerView recyclerView;
     FriendsAdapter friendsAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    int count = 0;
+    SwipeRefreshLayout swipeRefreshLayout;
 
+    public FriendsFragment(  ) {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,11 +47,36 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getFriends();
+                friendsAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         friendsAdapter = new FriendsAdapter();
 
+        content();
         getFriends();
         return view;
+    }
+
+    private void content() {
+        count++;
+        getFriends();
+        refresh(5000);
+    }
+
+    private void  refresh(int miliseconds){
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                content();
+            }
+        }; handler.postDelayed(runnable, miliseconds);
     }
 
     public void getFriends()
@@ -69,8 +98,6 @@ public class FriendsFragment extends Fragment {
                 List<TblFriends> tblFriends = response.body();
                 friendsAdapter.setData(tblFriends);
                 recyclerView.setAdapter(friendsAdapter);
-
-                //    Log.e("success",response.body().toString());
             }
             else   Log.d("error","Your contact list is empty. Invite yor firends");
 
@@ -82,5 +109,4 @@ public class FriendsFragment extends Fragment {
         }
     });
   }
-
 }
