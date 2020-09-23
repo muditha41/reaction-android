@@ -3,12 +3,14 @@ package com.tech41.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,19 +63,36 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         TblFriends tblFriends = friendsResposeList.get(position);
         String username = tblFriends.getFriend().getUserName();
         String second_text = tblFriends.getUserStatus().getStatusState();
-        String time_text = tblFriends.getUserStatus().getFriendStatusTimeStamp();
+        String time_text = tblFriends.getUserStatus().getTime();
 
         holder.username.setText(username);
         holder.second_text.setText(second_text);
         holder.time_text.setText(time_text);
 
-        ///////////////////////
+        // message status and icons
+        if(second_text != null) {
+            if (second_text.equals("New Status")) {
+                holder.new_satatus_icon.setVisibility(View.VISIBLE);
+                holder.time_text.setTextColor(Color.parseColor("#9760C6"));
+                holder.second_text.setCompoundDrawables(null, null, null, null);
+            } else if (second_text.equals("Replied")) {
+
+                holder.new_satatus_icon.setVisibility(View.GONE);
+            } else {
+                holder.second_text.setCompoundDrawables(null, null, null, null);
+                holder.new_satatus_icon.setVisibility(View.GONE);
+            }
+        }else {
+            holder.second_text.setVisibility(View.GONE);
+            holder.new_satatus_icon.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, StatusActivity.class);
-               intent.putExtra("userFriend", tblFriends);
+                intent.putExtra("userFriend", tblFriends);
                 context.startActivity(intent);
 
                 //status state check
@@ -116,10 +135,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
 
     public class FriendAdapterVH extends RecyclerView.ViewHolder {
 
-        TextView username;
-        TextView second_text;
-        TextView time_text;
+        TextView username,second_text,time_text;
         CircleImageView profile_image;
+        ImageView new_satatus_icon;
 
         public FriendAdapterVH(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +145,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
             second_text = itemView.findViewById(R.id.second_text);
             time_text = itemView.findViewById(R.id.time_text);
             profile_image = itemView.findViewById(R.id.profile_image);
+            new_satatus_icon =itemView.findViewById(R.id.new_satatus_icon);
         }
     }
 

@@ -50,7 +50,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 Intent intent = new Intent(mContext, MessageActivity.class);
                 intent.putExtra("friendId",userFriends.getFriendId());
                 mContext.startActivity(intent);
-
             }
         });
     }

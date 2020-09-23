@@ -10,10 +10,9 @@ public class TblRequests {
     public TblRequests() {
     }
 
-    public TblRequests(String friendId, user friend, String text) {
+    public TblRequests(String friendId, user friend) {
         this.friendId = friendId;
         this.friend = friend;
-        this.text = text;
     }
 
     public String getFriendId() {
@@ -32,13 +31,6 @@ public class TblRequests {
         this.friend = friend;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     @SerializedName("body")
     private String text;

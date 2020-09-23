@@ -57,7 +57,7 @@ public void getStatusViewData(){
     TextView friend_name = (TextView)findViewById(R.id.friend_name);
     TextView friend_status_id = (TextView)findViewById(R.id.friend_status_id);
     TextView user_status_id = (TextView)findViewById(R.id.user_status_id);
-    LottieAnimationView friend_status_image = (LottieAnimationView)findViewById(R.id.friend_status_image);
+  //  LottieAnimationView friend_status_image = (LottieAnimationView)findViewById(R.id.friend_status_image);
     ImageView friend_status_img =(ImageView)findViewById(R.id.friend_status_img);
     ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
 
@@ -77,6 +77,7 @@ public void getStatusViewData(){
     String user_status = userFriend.getUserStatus().getStatus().getName();
     String user_status_img_url = userFriend.getUserStatus().getStatus().getImage();
     String friend_status_img_url = userFriend.getUserStatus().getFriendStatus().getImage();
+
 
     // Friend Status part
        if(friend_status_img_url.equals(null)){
@@ -101,5 +102,5 @@ public void getStatusViewData(){
         user_status_img.setImageResource(resourceId);
         user_status_id.setText(user_status);
     }
+  }
  }
-}

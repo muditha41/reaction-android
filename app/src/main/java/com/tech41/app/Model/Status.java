@@ -13,11 +13,10 @@ public class Status implements Serializable {
     public Status() {
     }
 
-    public Status(int statusId, String name, String image, String text) {
+    public Status(int statusId, String name, String image) {
         this.statusId = statusId;
         this.name = name;
         this.image = image;
-        this.text = text;
     }
 
     public int getStatusId() {
@@ -44,13 +43,6 @@ public class Status implements Serializable {
         this.image = image;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     @SerializedName("body")
     private String text;

@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     public static String usernameSave;
     public static String token;
     SharedPreferences sharedPreferences;
-
     TokenManager tokenManager;
     private Context context;
 
@@ -62,72 +61,60 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        signup_text = findViewById(R.id.signup_text);
-        signup_text.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            }
-        });
-
         api = RetrofitClient.getInstance().create(Api.class);
 
         Username = (EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
-        button=(Button) findViewById(R.id.btn_login);
-
 
         this.tokenManager = new TokenManager(LoginActivity.this);
+    }
 
+    public void login(View view) {
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        final AlertDialog dialog = new SpotsDialog.Builder()
+                .setContext(LoginActivity.this)
+                .build();
+                 dialog.show();
 
-                final AlertDialog dialog = new SpotsDialog.Builder()
-                        .setContext(LoginActivity.this)
-                        .build();
-                dialog.show();
-                usernameSave = Username.getText().toString();
-              // TblUser user = new TblUser("kavinda", "Kavinda@1234");
-                TblUser user = new TblUser(Username.getText().toString(), Password.getText().toString());
+        TblUser user = new TblUser(Username.getText().toString(), Password.getText().toString());
+        compositeDisposable.add(api.loginUser(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void accept(String s) throws Exception {
 
-                compositeDisposable.add(api.loginUser(user)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<String>() {
-                            @RequiresApi(api = Build.VERSION_CODES.O)
-                            @Override
-                            public void accept(String s) throws Exception {
+                        JSONObject obj = new JSONObject(s);
+                        token = obj.getString("token");
+                        tokenManager.createLoginSession(token,JWTUtils.decordeJWT(token));
 
-                          //  Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
-                                JSONObject obj = new JSONObject(s);
-                                token = obj.getString("token");
-
-                               tokenManager.createLoginSession(token,JWTUtils.decordeJWT(token));
-
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                dialog.dismiss();
-                                Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }));
-            }
-
-        });
+                       moveToMainActivity();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        dialog.dismiss();
+                        Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }));
 
     }
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
+
+    private void moveToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+    }
+
+    public void Register(View view) {
+        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
 
 
+//    @Override
+//    protected void onStop() {
+//        compositeDisposable.clear();
+//        super.onStop();
+//    }
 }

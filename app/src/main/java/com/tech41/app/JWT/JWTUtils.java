@@ -22,22 +22,12 @@ public class JWTUtils {
        Log.d("","Payload "+getJSon(splitstr[1]));
 
           java.util.Base64.Decoder decoder = java.util.Base64.getUrlDecoder();
-//        String headerJson = new String(decoder.decode(splitstr[0]));
           String payloadJson = new String(decoder.decode(splitstr[1]));
-//        String signatureJson = new String(decoder.decode(splitstr[2]));
-//
-//        System.out.println("JWT Header : " + headerJson);
-//        System.out.println("JWT Header : " + payloadJson);
-//       System.out.println("JWT Header : " + signatureJson);
-//
-//        JSONObject obj = new JSONObject(payloadJson);
-//        String id = obj.getString("id");
 
       return payloadJson;
     }
     public static String getJSon(String EncodeString) throws UnsupportedEncodingException
     {
-
         byte[] decodebyte = Base64.decode(EncodeString,Base64.URL_SAFE);
         return new String(decodebyte, "UTF-8");
     }

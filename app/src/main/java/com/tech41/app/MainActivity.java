@@ -28,22 +28,20 @@ package com.tech41.app;
         import android.widget.EditText;
         import android.widget.LinearLayout;
         import android.widget.TextView;
-
         import com.google.android.material.tabs.TabLayout;
         import com.tech41.app.Fragments.NotificationFragment;
         import com.tech41.app.Fragments.RequestsFragment;
         import com.tech41.app.Fragments.FriendsFragment;
+        import com.tech41.app.JWT.TokenManager;
         import com.tech41.app.Model.Invitation;
         import com.tech41.app.Model.ResponseError;
+        import com.tech41.app.Model.TblFriends;
         import com.tech41.app.Remote.Api;
         import com.tech41.app.Remote.RetrofitClient;
-
         import org.json.JSONObject;
-
         import java.util.ArrayList;
         import java.util.Timer;
         import java.util.TimerTask;
-
         import de.hdodenhof.circleimageview.CircleImageView;
         import dmax.dialog.SpotsDialog;
         import retrofit2.Call;
@@ -55,15 +53,18 @@ package com.tech41.app;
 public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
-    TextView username;
+    TextView username,tab_title;
     SharedPreferences preferences;
     private static final String TAG = "MainActivity";
     Timer timer;
+    TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tab_title =(TextView)findViewById(R.id.tab_title);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,13 +73,15 @@ public class MainActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
 
-        username.setText(usernameSave.toString());
+        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
+        String userName = preferences.getString("name","");
+        username.setText(userName);
+
         if (profile_image.equals(null)) {
             profile_image.setImageResource(R.mipmap.ic_launcher_round);
         } else {
             profile_image.setImageResource(R.mipmap.ic_launcher_round);
         }
-
 
         //add new friend button
         Button addfriendButton = findViewById(R.id.btn_addFriends);
@@ -88,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 addFriendDilaog();
             }
         });
-
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -114,13 +116,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                // FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
+                this.tokenManager = new TokenManager(MainActivity.this);
+                tokenManager.removeSession();
+                moveToLogin();
                 return true;
         }
         return false;
     }
+
+    private void moveToLogin() {
+        Intent intent = new Intent(MainActivity.this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    public void moveToProfile(View view) {
+        Intent intent = new Intent(MainActivity.this,MyAccountActivity.class);
+        startActivity(intent);
+    }
+
 
     class ViewPagerAdpter extends FragmentPagerAdapter{
 
@@ -135,7 +148,24 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position); }
+
+            switch(position) {
+                case 0:
+                    tab_title.setText("My contacts");
+                    break;
+                case 1:
+                    tab_title.setText("Notification");
+                    break;
+                case 2:
+                    tab_title.setText("Requests");
+                    break;
+                default:
+                    tab_title.setText("My contacts");
+                    break;
+            }
+
+            return fragments.get(position);
+        }
 
         @Override
         public int getCount() {
@@ -144,12 +174,15 @@ public class MainActivity extends AppCompatActivity {
 
         public void addFragment (Fragment fragment, String title){
             fragments.add(fragment);
-            titles.add(title);
+           titles.add(title);
+
+
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
+
             return titles.get(position);
         }
     }
@@ -198,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 }
-                            }, 2000);
+                            }, 1000);
                         }
                         // error code
                         else
@@ -209,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
 
                         } catch (Exception e) { }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseError> call, Throwable t) {
                         Log.e("Error",t.getLocalizedMessage());
@@ -217,7 +249,8 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-// Add friend dialog box
+
+     // Add friend dialog box
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setView(view)
                 .create();

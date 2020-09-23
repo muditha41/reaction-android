@@ -17,7 +17,7 @@ public class TblFriends implements Serializable {
     public TblFriends() {
     }
 
-    public TblFriends(int userFriendId, String userId, com.tech41.app.Model.user user, String friendId, com.tech41.app.Model.user friend, String inviteStatus, userStatus userStatus, String text) {
+    public TblFriends(int userFriendId, String userId, com.tech41.app.Model.user user, String friendId, com.tech41.app.Model.user friend, String inviteStatus, userStatus userStatus) {
         this.userFriendId = userFriendId;
         this.userId = userId;
         this.user = user;
@@ -25,7 +25,6 @@ public class TblFriends implements Serializable {
         this.friend = friend;
         this.inviteStatus = inviteStatus;
         this.userStatus = userStatus;
-        this.text = text;
     }
 
     public int getUserFriendId() {
@@ -84,13 +83,6 @@ public class TblFriends implements Serializable {
         this.userStatus = userStatus;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     @SerializedName("body")
     private String text;

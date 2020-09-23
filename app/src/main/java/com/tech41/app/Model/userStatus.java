@@ -15,12 +15,13 @@ public class userStatus implements Serializable {
     private String friendStatusTimeStamp;
     private Status friendStatus;
     private String userFriend;
+    private String time;
 
 
     public userStatus() {
     }
 
-    public userStatus(int userStatusId, int statusId, String statusTimeStamp, String statusState, Status status, int friendStatusId, String friendStatusTimeStamp, Status friendStatus, String userFriend, String text) {
+    public userStatus(int userStatusId, int statusId, String statusTimeStamp, String statusState, Status status, int friendStatusId, String friendStatusTimeStamp, Status friendStatus, String userFriend, String time) {
         this.userStatusId = userStatusId;
         this.statusId = statusId;
         this.statusTimeStamp = statusTimeStamp;
@@ -30,7 +31,7 @@ public class userStatus implements Serializable {
         this.friendStatusTimeStamp = friendStatusTimeStamp;
         this.friendStatus = friendStatus;
         this.userFriend = userFriend;
-        this.text = text;
+        this.time = time;
     }
 
     public int getUserStatusId() {
@@ -105,13 +106,14 @@ public class userStatus implements Serializable {
         this.userFriend = userFriend;
     }
 
-    public String getText() {
-        return text;
+    public String getTime() {
+        return time;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTime(String time) {
+        this.time = time;
     }
+
 
     @SerializedName("body")
     private String text;

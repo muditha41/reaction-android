@@ -53,6 +53,7 @@ public class SelectorDialog extends AppCompatDialogFragment {
     private Button btn_request_send;
     SharedPreferences preferences;
     private TblFriends userfriend;
+    public static String userId;
     Timer timer;
 
     public SelectorDialog( TblFriends userfriend) {
@@ -66,6 +67,10 @@ public class SelectorDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.emoji_selector_dialog,null);
+
+        preferences  = getActivity().getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
+        String token = preferences.getString("keyname","");
+        String id = preferences.getString("id","");
 
         imageCarousel = view.findViewById(R.id.imageCarousel);
         tvSelectedItem = view.findViewById(R.id.tvSelectedItem);
@@ -84,7 +89,7 @@ public class SelectorDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        statusUpdate();
+                        statusUpdate(id);
 
                     }
                 });
@@ -145,10 +150,10 @@ public class SelectorDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    private void statusUpdate(){
+    private void statusUpdate(String id){
         userStatusUpdate userStatusUpdate = new userStatusUpdate(
                 userfriend.getUserStatus().getUserStatusId(),
-                userId, userfriend.getFriendId(),
+                id, userfriend.getFriendId(),
                 Integer.parseInt(tvSelectedItem.getText().toString()));
 
         Api api = RetrofitClient.getInstance().create(Api.class);

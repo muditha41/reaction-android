@@ -52,7 +52,8 @@
        android:clickable="true"
        android:layout_width="45dp"
        android:layout_height="45dp"
-       android:id="@+id/profile_image"/>
+       android:id="@+id/profile_image"
+       android:onClick="moveToProfile"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -82,12 +83,9 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        app:tabSelectedTextColor="@color/white"
-       app:tabIndicatorColor="@color/white"
         app:tabTextColor="@color/fontBlack"
         app:tabGravity="center" >
 

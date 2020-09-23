@@ -25,6 +25,8 @@
         android:textStyle="bold" />
 
     <TextView
+        android:drawableLeft="@drawable/checked_icon"
+        android:drawablePadding="5dp"
         android:id="@+id/second_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,6 +59,23 @@
         android:inputType="time"
         android:textSize="12sp"
         android:textStyle="normal" />
+
+    <ImageView
+        android:id="@+id/new_satatus_icon"
+        android:layout_width="15sp"
+        android:layout_height="15dp"
+        android:layout_below="@+id/time_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="199dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="47dp"
+        android:layout_toEndOf="@+id/second_text"
+        android:layout_toRightOf="@+id/second_text"
+        android:src="@drawable/circle"
+        android:visibility="visible" />
 
     <View android:background="#D1D1D1"
 

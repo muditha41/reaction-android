@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tech41.app.JWT.TokenManager;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,46 +18,53 @@ import dmax.dialog.SpotsDialog;
 
 public class StartActivity extends AppCompatActivity {
 
-    TextView logo;
     Timer timer;
+    TokenManager tokenManager;
 
     @Override
     protected void onStart() {
-        super.onStart();
-    }
+            super.onStart();
+            checkSession();
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        private void checkSession() {
+            //check session
+            this.tokenManager = new TokenManager(StartActivity.this);
+            String KeyName = tokenManager.getSession();
 
+            if(KeyName!="0"){
+                moveToMainActivity();
+            }else {
+                moveToLogin();
+            }
+        }
+
+    private void moveToLogin() {
         //Timer for app loading
         timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run(){
                 Intent intent = new Intent(StartActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish();
+                finish(); } },2000);
+    }
 
-              }
-            },2000);
+    private void moveToMainActivity() {
+        //Timer for app loading
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run(){
+                Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish(); } },2000);
+    }
 
 
-
-
-        logo = findViewById(R.id.mainlogo);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final AlertDialog dialog = new SpotsDialog.Builder()
-                        .setContext(StartActivity.this)
-                        .build();
-                         dialog.show();
-
-                startActivity(new Intent(StartActivity.this, LoginActivity.class));
-            }
-        });
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
 
     }
+
 }
