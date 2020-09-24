@@ -10,6 +10,7 @@ import com.tech41.app.Model.Invitation;
 import com.tech41.app.Model.RegisterModel;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.TblNotifications;
 import com.tech41.app.Model.TblRequests;
 import com.tech41.app.Model.TblUser;
 import com.tech41.app.Model.userStatusUpdate;
@@ -61,6 +62,10 @@ public interface Api {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("/status/statusupdate")
     Call<ResponseError> statusUpdate(@Header("Authorization")String authToken, @Body userStatusUpdate userStatusUpdate);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("/Account/{uid}/notification")
+    Call<List<TblNotifications>> getNotification(@Header("Authorization")String authToken, @Path("uid") String uid);
 
 
 }

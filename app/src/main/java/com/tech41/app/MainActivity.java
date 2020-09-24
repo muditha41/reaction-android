@@ -148,22 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
-            switch(position) {
-                case 0:
-                    tab_title.setText("My contacts");
-                    break;
-                case 1:
-                    tab_title.setText("Notification");
-                    break;
-                case 2:
-                    tab_title.setText("Requests");
-                    break;
-                default:
-                    tab_title.setText("My contacts");
-                    break;
-            }
-
             return fragments.get(position);
         }
 
@@ -175,14 +159,11 @@ public class MainActivity extends AppCompatActivity {
         public void addFragment (Fragment fragment, String title){
             fragments.add(fragment);
            titles.add(title);
-
-
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-
             return titles.get(position);
         }
     }

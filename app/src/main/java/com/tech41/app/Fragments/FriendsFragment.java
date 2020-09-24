@@ -58,25 +58,25 @@ public class FriendsFragment extends Fragment {
 
         friendsAdapter = new FriendsAdapter();
 
-      //  content();
+       content();
         getFriends();
         return view;
     }
 
     private void content() {
-//        count++;
-//        getFriends();
-//        refresh(5000);
+        count++;
+        getFriends();
+        refresh(5000);
     }
 
     private void  refresh(int miliseconds){
-//        final Handler handler = new Handler();
-//        final Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                content();
-//            }
-//        }; handler.postDelayed(runnable, miliseconds);
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                content();
+            }
+        }; handler.postDelayed(runnable, miliseconds);
     }
 
     public void getFriends()

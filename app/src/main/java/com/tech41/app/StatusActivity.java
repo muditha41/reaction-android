@@ -31,7 +31,6 @@ public class StatusActivity extends AppCompatActivity {
     private Context context;
     SharedPreferences preferences;
     TextView tvSelected;
-    private List<TblFriends> friendsResposeList;
     private TblFriends userFriend;
 
     public StatusActivity(  ) {

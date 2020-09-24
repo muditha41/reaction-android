@@ -47,7 +47,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         String time = tblNotifications.getTime();
 
         holder.username.setText(username);
-        holder.second_text.setText(notification);
+        holder.notification_txt.setText(notification);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class NotificationAdapterVH extends RecyclerView.ViewHolder {
 
-        TextView username,second_text,time_text;
+        TextView username,notification_txt,time_text;
 
         public NotificationAdapterVH(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.username);
-
+            notification_txt = itemView.findViewById(R.id.notification_txt);
         }
     }
 }

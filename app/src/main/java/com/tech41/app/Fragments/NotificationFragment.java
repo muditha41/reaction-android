@@ -1,5 +1,9 @@
 package com.tech41.app.Fragments;
 
+import android.app.Notification;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,38 +11,121 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tech41.app.Adapter.FriendsAdapter;
+import com.tech41.app.Adapter.NotificationAdapter;
+import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.TblNotifications;
 import com.tech41.app.R;
+import com.tech41.app.Remote.Api;
+import com.tech41.app.Remote.RetrofitClient;
+
+import org.json.JSONObject;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class NotificationFragment extends Fragment {
 
+    SharedPreferences preferences;
     RecyclerView recyclerView;
+    TextView error_txt;
+    NotificationAdapter notificationAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    int count = 0;
+
+    public NotificationFragment(){
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view =inflater.inflate(R.layout.fragment_notification,container,false);
+        error_txt = view.findViewById(R.id.error_txt);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-              //  getRequests();
-               // requestsAdapter.notifyDataSetChanged();
+                getNotification();
+                notificationAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
+        notificationAdapter = new NotificationAdapter();
+
+        content();
+        getNotification();
         return view;
+    }
+
+    private void content() {
+        count++;
+        getNotification();
+        refresh(5000);
+    }
+
+    private void refresh(int miliseconds) {
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                content();
+            }
+        }; handler.postDelayed(runnable, miliseconds);
+    }
+
+    private void getNotification() {
+
+        preferences  = getActivity().getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
+        String token = preferences.getString("keyname","");
+        String id = preferences.getString("id","");
+
+        Api api = RetrofitClient.getInstance().create(Api.class);
+
+        Call<List<TblNotifications>> call = api.getNotification("Bearer "+token,id);
+        call.enqueue(new Callback<List<TblNotifications>>() {
+            @Override
+            public void onResponse(Call<List<TblNotifications>> call, Response<List<TblNotifications>> response) {
+
+                if (response.isSuccessful())
+                {
+                    List<TblNotifications> tblNotifications = response.body();
+                    notificationAdapter.setData(tblNotifications);
+                    recyclerView.setAdapter(notificationAdapter);
+                }
+
+                else
+                    try {
+                        JSONObject obj = new JSONObject(response.errorBody().string());
+                        error_txt.setText(obj.getString("message"));
+                        error_txt.setVisibility(View.VISIBLE);
+
+                    } catch (Exception e) { }
+
+            }
+            @Override
+            public void onFailure(Call<List<TblNotifications>> call, Throwable t) {
+
+                Log.e("failure",t.getLocalizedMessage());
+            }
+        });
     }
 }
