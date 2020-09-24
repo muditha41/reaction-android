@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class RequestsFragment extends Fragment {
     RecyclerView recyclerView;
     RequestsAdapter requestsAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    int count = 0;
 
 
     @Override
@@ -69,9 +71,25 @@ public class RequestsFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
+        content();
         getRequests();
         return view;
+    }
+
+    private void content() {
+        count++;
+        getRequests();
+        refresh(2000);
+    }
+
+    private void  refresh(int miliseconds){
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                content();
+            }
+        }; handler.postDelayed(runnable, miliseconds);
     }
 
     public void getRequests()

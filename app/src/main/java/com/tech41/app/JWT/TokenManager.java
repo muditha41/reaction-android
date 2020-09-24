@@ -3,13 +3,14 @@ package com.tech41.app.JWT;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.tech41.app.Model.userStatusUpdate;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TokenManager {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    public static String userId;
 
     Context context;
     int privatemode = 0;
@@ -18,18 +19,17 @@ public class TokenManager {
     private static final String KeyName="keyname";
     private static final String  Name="name";
     private static final String  Id="id";
-  public static final String  Uid="id";
 
     public TokenManager(Context context)
     {
         this.context=context;
-        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(PREF_NAME, privatemode);
         editor=preferences.edit();
     }
 public void createLoginSession(String keyName,String payload) throws JSONException {
        JSONObject obj = new JSONObject(payload);
        String id = obj.getString("id");
-       userId = obj.getString("id"); // user id save public temp
+     //   uId = obj.getString("id"); // user id save public temp
        String name = obj.getString("name");
 
         editor.putString(KeyName,keyName);
@@ -42,6 +42,6 @@ public String getSession(){
         return preferences.getString(KeyName,"0");
 }
 
-public void removeSession(){ editor.putString(KeyName,null).commit();}
+public void removeSession(){ editor.putString(KeyName,"0").commit();}
 
 }

@@ -25,9 +25,8 @@ import com.tech41.app.Model.userStatusUpdate;
 
 import java.util.List;
 
-public class StatusActivity extends AppCompatActivity {
+public class StatusActivity extends AppCompatActivity implements SelectorDialog.SelectorDialogListner {
 
-    private List<TblRequests> requestsResposeList;
     private Context context;
     SharedPreferences preferences;
     TextView tvSelected;
@@ -79,7 +78,7 @@ public void getStatusViewData(){
 
 
     // Friend Status part
-       if(friend_status_img_url.equals(null)){
+       if(friend_status_img_url.equals("Empty")){
         friend_status_img.setImageResource(R.drawable.empty_face);
         friend_status_id.setText(userFriend.getFriend().getUserName()+" hasn't updated yet.");
     }else {
@@ -89,9 +88,8 @@ public void getStatusViewData(){
         friend_status_img.setImageResource(resourceId);
         friend_status_id.setText(friend_status);
     }
-
     // User Status part
-        if(user_status_img_url.equals(null)){
+        if(user_status_img_url.equals("Empty")){
         user_status_img.setImageResource(R.drawable.empty_face);
         friend_status_id.setText(userFriend.getFriend().getUserName()+" hasn't updated yet.");
     } else {
@@ -102,4 +100,17 @@ public void getStatusViewData(){
         user_status_id.setText(user_status);
     }
   }
- }
+
+    @Override
+    public void applyTexts(String imgId) {
+        TextView user_status_id = (TextView)findViewById(R.id.user_status_id);
+        ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
+        Resources res = getResources();
+        String packageName = "com.tech41.app";
+        int resourceId = res.getIdentifier(
+                imgId , "drawable", packageName);
+        int img = resourceId;
+        user_status_img.setImageResource(resourceId);
+        user_status_id.setText(imgId);
+    }
+}

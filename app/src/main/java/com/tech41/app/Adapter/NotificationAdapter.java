@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tech41.app.Model.TblFriends;
@@ -65,4 +66,5 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             notification_txt = itemView.findViewById(R.id.notification_txt);
         }
     }
+
 }

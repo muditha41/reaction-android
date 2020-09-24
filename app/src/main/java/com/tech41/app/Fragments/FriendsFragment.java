@@ -1,6 +1,7 @@
 package com.tech41.app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tech41.app.Adapter.FriendsAdapter;
+import com.tech41.app.JWT.TokenManager;
+import com.tech41.app.MainActivity;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
@@ -26,6 +29,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.tech41.app.MainActivity.token;
+import static com.tech41.app.MainActivity.uId;
 
 public class FriendsFragment extends Fragment {
     SharedPreferences preferences;
@@ -57,16 +63,15 @@ public class FriendsFragment extends Fragment {
         });
 
         friendsAdapter = new FriendsAdapter();
-
-       content();
-        getFriends();
+        content();
+       getFriends();
         return view;
     }
 
     private void content() {
         count++;
         getFriends();
-        refresh(5000);
+        refresh(2000);
     }
 
     private void  refresh(int miliseconds){
@@ -81,13 +86,9 @@ public class FriendsFragment extends Fragment {
 
     public void getFriends()
     {
-     preferences  = getActivity().getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-   String token = preferences.getString("keyname","");
-    String id = preferences.getString("id","");
-
     Api api = RetrofitClient.getInstance().create(Api.class);
 
-    Call<List<TblFriends>> call = api.getfriendslist("Bearer "+token,id);
+    Call<List<TblFriends>> call = api.getfriendslist("Bearer "+token, uId);
         call.enqueue(new Callback<List<TblFriends>>() {
         @Override
         public void onResponse(Call<List<TblFriends>> call, Response<List<TblFriends>> response) {

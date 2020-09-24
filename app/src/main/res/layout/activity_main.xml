@@ -12,49 +12,32 @@
     android:background="@color/white"
     android:layout_height="181dp">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:paddingLeft="250dp"
-         android:layout_gravity="right"
+        android:layout_gravity="right"
         android:outlineAmbientShadowColor="@color/fontBlack"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/MenuStyle">
+        android:paddingLeft="230dp"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
 
+        <include
+            android:id="@+id/bell"
+            layout="@layout/bell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="50dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_loading"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.066"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_colorFilter="#7D7D7D"
-            android:cropToPadding="true"
-            app:lottie_rawRes="@raw/bellanimation" />
-
-        <ImageButton
-            android:visibility="gone"
-            android:id="@+id/notification"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="15dp"
-            android:layout_width="25dp"
-            android:layout_height="28dp"
-            android:background="@drawable/bell_icon"
-            />
-
-   <de.hdodenhof.circleimageview.CircleImageView
-       android:clickable="true"
-       android:layout_width="45dp"
-       android:layout_height="45dp"
-       android:id="@+id/profile_image"
-       android:onClick="moveToProfile"/>
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:clickable="true"
+            android:onClick="moveToProfile" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
@@ -83,7 +66,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:tabTextColor="@color/fontBlack"
@@ -91,16 +74,6 @@
 
 
     </com.google.android.material.tabs.TabLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:text="ftghfhfhf"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        />
 
 </com.google.android.material.appbar.AppBarLayout>
 

@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     Button button;
     TextView signup_text;
     public static String usernameSave;
-    public static String token;
+    private String token;
     SharedPreferences sharedPreferences;
     TokenManager tokenManager;
     private Context context;
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject obj = new JSONObject(s);
                         token = obj.getString("token");
                         tokenManager.createLoginSession(token,JWTUtils.decordeJWT(token));
-
+                        dialog.dismiss();
                        moveToMainActivity();
                     }
                 }, new Consumer<Throwable>() {

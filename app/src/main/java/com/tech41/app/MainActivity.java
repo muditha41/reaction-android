@@ -11,6 +11,7 @@ package com.tech41.app;
         import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
         import androidx.viewpager.widget.ViewPager;
 
+        import android.app.Activity;
         import android.content.Context;
         import android.content.Intent;
         import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ package com.tech41.app;
         import android.graphics.drawable.ColorDrawable;
         import android.os.Bundle;
         import android.os.Handler;
+        import android.preference.PreferenceManager;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.Menu;
@@ -28,7 +30,10 @@ package com.tech41.app;
         import android.widget.EditText;
         import android.widget.LinearLayout;
         import android.widget.TextView;
+        import android.widget.Toast;
+
         import com.google.android.material.tabs.TabLayout;
+        import com.tech41.app.Adapter.FriendsAdapter;
         import com.tech41.app.Fragments.NotificationFragment;
         import com.tech41.app.Fragments.RequestsFragment;
         import com.tech41.app.Fragments.FriendsFragment;
@@ -53,29 +58,34 @@ package com.tech41.app;
 public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
-    TextView username,tab_title;
+    TextView tab_title,notificationNumber;
     SharedPreferences preferences;
     private static final String TAG = "MainActivity";
     Timer timer;
-    TokenManager tokenManager;
+    NotificationCounter notificationCounter;
+    Context context;
+    public static String uId;
+    public static String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
+         token = preferences.getString("keyname","");
+         uId = preferences.getString("id","");
+
         tab_title =(TextView)findViewById(R.id.tab_title);
+        profile_image = findViewById(R.id.profile_image);
+        notificationCounter = new NotificationCounter(findViewById(R.id.bell));
+        notificationNumber=(TextView)findViewById(R.id.notificationNumber);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        profile_image = findViewById(R.id.profile_image);
-        username = findViewById(R.id.username);
-
-        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-        String userName = preferences.getString("name","");
-        username.setText(userName);
 
         if (profile_image.equals(null)) {
             profile_image.setImageResource(R.mipmap.ic_launcher_round);
@@ -104,36 +114,37 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdpter);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+              //  Toast.makeText(getApplicationContext(),"onTabSelected",Toast.LENGTH_LONG).show();
+            }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                String ac = null;
+                int pos = viewPager.getCurrentItem();
+                Fragment activeFragment = viewPagerAdpter.getItem(pos);
+                if(pos==0){
+                    tab_title.setText("My contacts");
+                }else if(pos==1){
+                    tab_title.setText("Notification");
+                }else
+                    tab_title.setText("Requests");
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logout:
-                this.tokenManager = new TokenManager(MainActivity.this);
-                tokenManager.removeSession();
-                moveToLogin();
-                return true;
-        }
-        return false;
-    }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Toast.makeText(getApplicationContext(),"onTabReselected",Toast.LENGTH_LONG).show();
+            }
+        });
 
-    private void moveToLogin() {
-        Intent intent = new Intent(MainActivity.this, StartActivity.class);
-        startActivity(intent);
     }
 
     public void moveToProfile(View view) {
         Intent intent = new Intent(MainActivity.this,MyAccountActivity.class);
         startActivity(intent);
     }
-
 
     class ViewPagerAdpter extends FragmentPagerAdapter{
 
@@ -148,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+          return fragments.get(position);
         }
 
         @Override

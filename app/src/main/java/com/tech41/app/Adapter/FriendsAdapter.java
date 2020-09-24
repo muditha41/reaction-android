@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tech41.app.Model.Invitation;
@@ -147,6 +148,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
             profile_image = itemView.findViewById(R.id.profile_image);
             new_satatus_icon =itemView.findViewById(R.id.new_satatus_icon);
         }
+
+
+
     }
 
 }

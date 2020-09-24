@@ -41,8 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.tech41.app.JWT.TokenManager.userId;
-import static com.tech41.app.LoginActivity.token;
+import static com.tech41.app.MainActivity.token;
 
 public class SelectorDialog extends AppCompatDialogFragment {
 
@@ -53,8 +52,9 @@ public class SelectorDialog extends AppCompatDialogFragment {
     private Button btn_request_send;
     SharedPreferences preferences;
     private TblFriends userfriend;
-    public static String userId;
+    private static String selected_icon;
     Timer timer;
+    private SelectorDialogListner listner;
 
     public SelectorDialog( TblFriends userfriend) {
          this.userfriend=userfriend;
@@ -90,7 +90,7 @@ public class SelectorDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         statusUpdate(id);
-
+                        listner.applyTexts(selected_icon);
                     }
                 });
 
@@ -111,27 +111,25 @@ public class SelectorDialog extends AppCompatDialogFragment {
 
             @Override
             public void onPageSelected(int position) {
-                tvSelectedItem.setText(""+position);
-                String selected_icon;
-                switch(position) {
-                    case 0:
-                        selected_icon="emoji_happy";
-                        break;
-                    case 1:
-                        selected_icon="emoji_crying";
-                        break;
-                    case 2:
-                        selected_icon="emoji_angry";
-                        break;
-                    case 3:
-                        selected_icon="emoji_confused";
-                        break;
-                    case 4:
-                        selected_icon="emoji_in_love";
-                        break;
-                    default:
-                        selected_icon="empty_face";
-                        break;
+                selected_icon = null;
+                if(position==0){
+                    tvSelectedItem.setText(""+2);
+                    selected_icon="emoji_happy";
+                }else if(position==1){
+                    tvSelectedItem.setText(""+3);
+                    selected_icon="emoji_crying";
+                }else if(position==2) {
+                    tvSelectedItem.setText("" +4);
+                    selected_icon = "emoji_angry";
+                }else if(position==3) {
+                    tvSelectedItem.setText("" +5);
+                    selected_icon = "emoji_confused";
+                }else if(position==4) {
+                    tvSelectedItem.setText("" +6);
+                    selected_icon = "emoji_in_love";
+                }else{
+                    tvSelectedItem.setText("" +1);
+                    selected_icon = "Empty";
                 }
 
                 Resources res = getResources();
@@ -150,6 +148,21 @@ public class SelectorDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listner =(SelectorDialogListner) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()+
+                    "error in lisner part");
+        }
+    }
+
+    public interface SelectorDialogListner{
+        void applyTexts(String imgId);
+    }
+
     private void statusUpdate(String id){
         userStatusUpdate userStatusUpdate = new userStatusUpdate(
                 userfriend.getUserStatus().getUserStatusId(),
@@ -162,6 +175,8 @@ public class SelectorDialog extends AppCompatDialogFragment {
             @Override
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
+
+
 
                 }
                 else

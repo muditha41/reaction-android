@@ -40,8 +40,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.tech41.app.LoginActivity.token;
-
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.FriendAdapterVH> {
 
     private List<TblRequests> requestsResposeList;
@@ -89,7 +87,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         });
 
     }
-
     @Override
     public int getItemCount() {
         return requestsResposeList.size();

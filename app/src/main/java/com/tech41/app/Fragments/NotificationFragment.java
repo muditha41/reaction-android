@@ -2,11 +2,14 @@ package com.tech41.app.Fragments;
 
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.MailTo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,11 +23,15 @@ import android.widget.TextView;
 
 import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Adapter.NotificationAdapter;
+import com.tech41.app.JWT.TokenManager;
+import com.tech41.app.MainActivity;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.TblNotifications;
+import com.tech41.app.NotificationCounter;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
+import com.tech41.app.StatusActivity;
 
 import org.json.JSONObject;
 
@@ -35,19 +42,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.tech41.app.MainActivity.token;
+import static com.tech41.app.MainActivity.uId;
+
 
 public class NotificationFragment extends Fragment {
 
     SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     RecyclerView recyclerView;
-    TextView error_txt;
+    TextView error_txt,notificationNumber;
     NotificationAdapter notificationAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     int count = 0;
+    private Context context;
 
-    public NotificationFragment(){
 
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +68,6 @@ public class NotificationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -94,13 +104,9 @@ public class NotificationFragment extends Fragment {
 
     private void getNotification() {
 
-        preferences  = getActivity().getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-        String token = preferences.getString("keyname","");
-        String id = preferences.getString("id","");
-
         Api api = RetrofitClient.getInstance().create(Api.class);
 
-        Call<List<TblNotifications>> call = api.getNotification("Bearer "+token,id);
+        Call<List<TblNotifications>> call = api.getNotification("Bearer "+token,uId);
         call.enqueue(new Callback<List<TblNotifications>>() {
             @Override
             public void onResponse(Call<List<TblNotifications>> call, Response<List<TblNotifications>> response) {
@@ -110,12 +116,14 @@ public class NotificationFragment extends Fragment {
                     List<TblNotifications> tblNotifications = response.body();
                     notificationAdapter.setData(tblNotifications);
                     recyclerView.setAdapter(notificationAdapter);
+                    String count = String.valueOf(tblNotifications.size()); // notification count
+
                 }
 
                 else
                     try {
                         JSONObject obj = new JSONObject(response.errorBody().string());
-                        error_txt.setText(obj.getString("message"));
+                        error_txt.setText(obj.getString("Error"));
                         error_txt.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) { }
@@ -128,4 +136,5 @@ public class NotificationFragment extends Fragment {
             }
         });
     }
+
 }
