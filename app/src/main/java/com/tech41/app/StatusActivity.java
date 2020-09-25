@@ -113,4 +113,9 @@ public void getStatusViewData(){
         user_status_img.setImageResource(resourceId);
         user_status_id.setText(imgId);
     }
+
+    public void moveToMainActivity(View view) {
+        Intent intent = new Intent(StatusActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }

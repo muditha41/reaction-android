@@ -1,15 +1,10 @@
 package com.tech41.app.Fragments;
 
-import android.app.Notification;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.MailTo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -21,23 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Adapter.NotificationAdapter;
-import com.tech41.app.JWT.TokenManager;
-import com.tech41.app.MainActivity;
-import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblNotifications;
-import com.tech41.app.NotificationCounter;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
-import com.tech41.app.StatusActivity;
 
 import org.json.JSONObject;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +45,7 @@ public class NotificationFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     int count = 0;
     private Context context;
-
+    List<TblNotifications> tblNotifications;
 
 
 
@@ -68,18 +57,48 @@ public class NotificationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Api api = RetrofitClient.getInstance().create(Api.class);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getNotification();
-                notificationAdapter.notifyDataSetChanged();
+             //   notificationAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        notificationAdapter = new NotificationAdapter();
+        notificationAdapter = new NotificationAdapter( );
+
+        notificationAdapter.setOnItemClickListener(new NotificationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                // API not found method error
+
+//                Api api = RetrofitClient.getInstance().create(Api.class);
+//                Call<ResponseError> call = api.checkNotifications("Bearer "+token,uId);
+//                call.enqueue(new Callback<ResponseError>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
+//                        if (response.isSuccessful()) {
+//                            tblNotifications.get(position).changeBgColor(1);
+//                        }
+//                        else
+//                            try {
+//                                JSONObject obj = new JSONObject(response.errorBody().string());
+//                                String e = (obj.getString("message"));
+//                            } catch (Exception e) { }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseError> call, Throwable t) {
+//                        Log.e("Error",t.getLocalizedMessage());
+//                    }
+//                });
+            }
+        });
 
         content();
         getNotification();
@@ -136,5 +155,6 @@ public class NotificationFragment extends Fragment {
             }
         });
     }
+
 
 }

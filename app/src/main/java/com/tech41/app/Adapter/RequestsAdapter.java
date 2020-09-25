@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,8 @@ import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
 import com.tech41.app.StatusActivity;
-
+import static com.tech41.app.MainActivity.token;
+import static com.tech41.app.MainActivity.uId;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -40,11 +42,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.FriendAdapterVH> {
+public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestsAdapterVH> {
 
     private List<TblRequests> requestsResposeList;
     private Context context;
     SharedPreferences preferences;
+    private OnItemClickListener mlistener;
+
+    public interface OnItemClickListener{
+      void onConfirmClick(int position);
+    }
+
+    public void setOnItemClickListener(RequestsAdapter.OnItemClickListener listener){
+        mlistener = listener;
+    }
 
     public RequestsAdapter() {
     }
@@ -54,15 +65,37 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         notifyDataSetChanged();
     }
 
+    public class RequestsAdapterVH extends RecyclerView.ViewHolder {
+
+        TextView username;
+        TextView friend_email;
+        CircleImageView profile_image;
+        Button btn_confirm,btn_delete;
+        ImageView confirm_icon;
+
+        public RequestsAdapterVH(@NonNull View itemView,OnItemClickListener listener) {
+            super(itemView);
+            username = itemView.findViewById(R.id.username);
+            friend_email = itemView.findViewById(R.id.friend_email);
+            profile_image = itemView.findViewById(R.id.profile_image);
+            btn_confirm = itemView.findViewById(R.id.btn_confirm);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
+        }
+    }
+
     @NonNull
     @Override
-    public RequestsAdapter.FriendAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        return new RequestsAdapter.FriendAdapterVH(LayoutInflater.from(context).inflate(R.layout.request_item,parent,false));
+    public RequestsAdapter.RequestsAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.request_item,parent,false);
+        RequestsAdapter.RequestsAdapterVH evh = new RequestsAdapter.RequestsAdapterVH(v,mlistener);
+        return evh;
+      //  context = parent.getContext();
+       // return new RequestsAdapter.FriendAdapterVH(LayoutInflater.from(context).inflate(R.layout.request_item,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RequestsAdapter.FriendAdapterVH holder, int position) {
+    public void onBindViewHolder(@NonNull RequestsAdapter.RequestsAdapterVH holder, int position) {
 
         TblRequests tblRequests = requestsResposeList.get(position);
         String username = tblRequests.getFriend().getUserName();
@@ -75,13 +108,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         holder.btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                preferences = context.getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-                String token = preferences.getString("keyname","");
-                String uid = preferences.getString("id","");
-                String email = tblRequests.getFriend().getEmail().toString();
-
-                acceptInvite(token,uid,email);
+               String email = tblRequests.getFriend().getEmail().toString();
+                acceptInvite(token,uId,email,position);
 
             }
         });
@@ -92,24 +120,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
         return requestsResposeList.size();
     }
 
-    public class FriendAdapterVH extends RecyclerView.ViewHolder {
 
-        TextView username;
-        TextView friend_email;
-        CircleImageView profile_image;
-        Button btn_confirm,btn_delete;
-
-        public FriendAdapterVH(@NonNull View itemView) {
-            super(itemView);
-            username = itemView.findViewById(R.id.username);
-            friend_email = itemView.findViewById(R.id.friend_email);
-            profile_image = itemView.findViewById(R.id.profile_image);
-            btn_confirm = itemView.findViewById(R.id.btn_confirm);
-            btn_delete = itemView.findViewById(R.id.btn_delete);
-        }
-    }
-
-    public void acceptInvite(String token,String uid,String email){
+    public void acceptInvite(String token,String uid,String email,int position){
 
         Api api = RetrofitClient.getInstance().create(Api.class);
         Invitation invitation = new Invitation(uid, email);
@@ -119,6 +131,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Friend
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
 
+                    requestsResposeList.remove(position);
+                    notifyItemRemoved(position);
                 }
                 else
                     try {

@@ -8,6 +8,7 @@ public class TblNotifications {
     private user friend;
     private String notification;
     private String time;
+    private int Bgcolor = 0;
 
 
     public TblNotifications() {
@@ -19,7 +20,11 @@ public class TblNotifications {
         this.notification = notification;
         this.time = time;
         this.text = text;
+        this.Bgcolor = Bgcolor;
     }
+   public void changeBgColor(int color){
+       Bgcolor = color;
+   }
 
     public int getUserNotificationId() {
         return userNotificationId;
@@ -59,6 +64,10 @@ public class TblNotifications {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getBgcolor() {
+        return Bgcolor;
     }
 
     @SerializedName("body")

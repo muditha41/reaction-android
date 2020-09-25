@@ -67,5 +67,9 @@ public interface Api {
     @GET("/Account/{uid}/notification")
     Call<List<TblNotifications>> getNotification(@Header("Authorization")String authToken, @Path("uid") String uid);
 
+   @Headers({ "Content-Type: application/json;charset=UTF-8"})
+   @PUT("/Account/{userId}/notificationchecked")
+   Call<ResponseError> checkNotifications(@Header("Authorization")String authToken,@Path("uid") String uid);
+
 
 }

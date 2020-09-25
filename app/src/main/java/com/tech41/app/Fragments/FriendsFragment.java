@@ -57,13 +57,14 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onRefresh() {
                 getFriends();
+               friendsAdapter.notifyAll();
                 friendsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
         friendsAdapter = new FriendsAdapter();
-        content();
+       content();
        getFriends();
         return view;
     }
@@ -98,6 +99,7 @@ public class FriendsFragment extends Fragment {
                 List<TblFriends> tblFriends = response.body();
                 friendsAdapter.setData(tblFriends);
                 recyclerView.setAdapter(friendsAdapter);
+                friendsAdapter.notifyDataSetChanged();
             }
             else   Log.d("error","Your contact list is empty. Invite yor firends");
 

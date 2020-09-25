@@ -20,6 +20,7 @@ package com.tech41.app;
         import android.os.Bundle;
         import android.os.Handler;
         import android.preference.PreferenceManager;
+        import android.text.Layout;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.Menu;
@@ -28,6 +29,7 @@ package com.tech41.app;
         import android.view.View.OnClickListener;
         import android.widget.Button;
         import android.widget.EditText;
+        import android.widget.ImageButton;
         import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
 
+
+
         if (profile_image.equals(null)) {
             profile_image.setImageResource(R.mipmap.ic_launcher_round);
         } else {
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void moveToProfile(View view) {
         Intent intent = new Intent(MainActivity.this,MyAccountActivity.class);
         startActivity(intent);
@@ -170,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
         public void addFragment (Fragment fragment, String title){
             fragments.add(fragment);
            titles.add(title);
+        }
+        public void addView (View view){
+
         }
 
         @Nullable

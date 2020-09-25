@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,25 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Adapter.RequestsAdapter;
-import com.tech41.app.Adapter.UserAdapter;
-import com.tech41.app.Model.Chat;
-import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.Invitation;
+import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblRequests;
-import com.tech41.app.Model.user;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
+import static com.tech41.app.MainActivity.token;
+import static com.tech41.app.MainActivity.uId;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,6 +40,7 @@ public class RequestsFragment extends Fragment {
     RecyclerView recyclerView;
     RequestsAdapter requestsAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    private List<TblRequests> requestsList;
     int count = 0;
 
 
@@ -60,8 +53,9 @@ public class RequestsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        requestsAdapter = new RequestsAdapter();
 
+
+        requestsAdapter = new RequestsAdapter();
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,5 +116,4 @@ public class RequestsFragment extends Fragment {
             }
         });
     }
-
 }
