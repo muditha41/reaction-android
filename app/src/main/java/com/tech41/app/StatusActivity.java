@@ -118,4 +118,11 @@ public void getStatusViewData(){
         Intent intent = new Intent(StatusActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void moveToProfile(View view) {
+
+       Intent intent = new Intent(StatusActivity.this, ProfileActivity.class);
+        intent.putExtra("friendProfile", userFriend);
+        startActivity(intent);
+    }
 }

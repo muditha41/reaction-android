@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:onClick="moveToStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_btn" />
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/bold"
+        android:text="Profile"
+        android:textColor="@color/fontBlack"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="154dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/bold"
+        android:text="About"
+        android:textColor="@color/fontBlack"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:paddingLeft="0dp"
+        android:id="@+id/about"
+        android:layout_width="290dp"
+        android:padding="15dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="324dp"
+        android:background="@drawable/gray_input_field"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:hint="about"
+        android:selectAllOnFocus="true"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lives"
+        android:layout_width="360dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/gray_input_field"
+        android:drawableLeft="@drawable/location_icon"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/regular"
+        android:gravity="center_vertical"
+        android:hint="Name"
+        android:selectAllOnFocus="true"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/input_lives_drop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <TextView
+        android:id="@+id/workplace"
+        android:layout_width="360dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/gray_input_field"
+        android:drawableLeft="@drawable/bag_icon"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/regular"
+        android:hint="Name"
+        android:selectAllOnFocus="true"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/input_lives_drop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lives"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <TextView
+        android:id="@+id/relationship_state"
+        android:layout_width="360dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/gray_input_field"
+        android:drawableLeft="@drawable/relationship_icon"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/regular"
+        android:hint="Name"
+        android:selectAllOnFocus="true"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/input_lives_drop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workplace"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <Button
+        android:id="@+id/btn_status"
+        android:layout_width="181dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/button"
+        android:onClick="moveToStatus"
+        android:text="Status"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relationship_state"
+        app:layout_constraintVertical_bias="0.717" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
