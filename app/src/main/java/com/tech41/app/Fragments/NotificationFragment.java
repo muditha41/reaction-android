@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.tech41.app.Adapter.NotificationAdapter;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblNotifications;
+import com.tech41.app.NotificationCounter;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
@@ -46,6 +47,7 @@ public class NotificationFragment extends Fragment {
     int count = 0;
     private Context context;
     List<TblNotifications> tblNotifications;
+ private NotificationCounter notificationCounter;
 
 
 
@@ -136,6 +138,7 @@ public class NotificationFragment extends Fragment {
                     notificationAdapter.setData(tblNotifications);
                     recyclerView.setAdapter(notificationAdapter);
                     String count = String.valueOf(tblNotifications.size()); // notification count
+                 //   notificationCounter.NotificationCount(count);
 
                 }
 

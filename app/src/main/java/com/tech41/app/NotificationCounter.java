@@ -14,13 +14,20 @@ import java.util.List;
 public class NotificationCounter {
     private TextView notificationNumber;
     private final int MAX_NUBER = 99;
-    private int notification_number_counter = 1;
+    private String notification_number_counter ;
 
     public NotificationCounter(View view){
         notificationNumber =view.findViewById(R.id.notificationNumber);
     }
 
-    public void Count( ){
+    public NotificationCounter(TextView notificationNumber, String notification_number_counter) {
+        this.notificationNumber = notificationNumber;
+        this.notification_number_counter = notification_number_counter;
+    }
+
+    public void NotificationCount(String count ){
+       String c =  count;
+        notificationNumber.setText(c);
 
 ////        if(count>MAX_NUBER){
 //            Log.d("Counter","Maximum Number Reached!");
