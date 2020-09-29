@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,17 +15,26 @@ import android.widget.TextView;
 
 import com.tech41.app.JWT.TokenManager;
 import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.TblNotifications;
+import com.tech41.app.Model.user;
+import com.tech41.app.Remote.Api;
+import com.tech41.app.Remote.RetrofitClient;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.tech41.app.MainActivity.token;
+import static com.tech41.app.MainActivity.uId;
 
 public class MyAccountActivity extends AppCompatActivity {
 
-
-    private Context context;
-    SharedPreferences preferences;
-    private TblFriends userFriend;
     TokenManager tokenManager;
+    SharedPreferences preferences;
 
     public  MyAccountActivity(){
-
     }
 
     @Override
@@ -32,6 +43,11 @@ public class MyAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_account);
 
         getAccountDetails();
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
+        token = preferences.getString("keyname","");
+        uId = preferences.getString("id","");
 
     }
 
@@ -43,13 +59,11 @@ public class MyAccountActivity extends AppCompatActivity {
         EditText input_workplace = (EditText)findViewById(R.id.input_workplace);
         Spinner input_relationship_drop = (Spinner)findViewById(R.id.input_relationship_drop);
 
-
-
-      //  input_about.setText(userFriend.getUser().getDescription());
-      //  input_name.setText(userFriend.getUser().getUserName());
-      //  input_lives_drop.setPrompt(userFriend.getUser().getLocation());
-      //  input_workplace.setText(userFriend.getUser().getWorkPlace());
-      //  input_relationship_drop.setPrompt(userFriend.getUser().getRelationshipStatus());
+//        input_about.setText(user.getDescription());
+//        input_name.setText(user.getUserName());
+//        input_lives_drop.setPrompt(user.getLocation());
+//        input_workplace.setText(user.getWorkPlace());
+//        input_relationship_drop.setPrompt(user.getRelationshipStatus());
 
     }
 
@@ -69,4 +83,6 @@ public class MyAccountActivity extends AppCompatActivity {
         Intent intent = new Intent(MyAccountActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+
 }

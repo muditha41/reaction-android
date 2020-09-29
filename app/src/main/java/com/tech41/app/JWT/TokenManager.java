@@ -3,7 +3,7 @@ package com.tech41.app.JWT;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.tech41.app.Model.userStatusUpdate;
+import com.tech41.app.Model.user;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,4 +44,9 @@ public String getSession(){
 
 public void removeSession(){ editor.putString(KeyName,"0").commit();}
 
+public String getUserId(){
+    return preferences.getString(Id,"");
+  }
 }
+
+

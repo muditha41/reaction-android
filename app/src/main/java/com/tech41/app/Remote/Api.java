@@ -3,9 +3,7 @@ package com.tech41.app.Remote;
 
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
+import com.tech41.app.Model.ImageUpdate;
 import com.tech41.app.Model.Invitation;
 import com.tech41.app.Model.RegisterModel;
 import com.tech41.app.Model.ResponseError;
@@ -18,17 +16,17 @@ import com.tech41.app.Model.userStatusUpdate;
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface Api {
 
@@ -68,8 +66,13 @@ public interface Api {
     Call<List<TblNotifications>> getNotification(@Header("Authorization")String authToken, @Path("uid") String uid);
 
    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-   @PUT("/Account/{userId}/notificationchecked")
+   @PUT("/Account/{uid}/notificationchecked")
    Call<ResponseError> checkNotifications(@Header("Authorization")String authToken,@Path("uid") String uid);
+
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/Account/updateimage")
+    Call<ResponseError> updateimage(@Header("Authorization")String authToken,  @Body ImageUpdate imageUpdate);
 
 
 }

@@ -10,52 +10,49 @@ package com.tech41.app;
         import androidx.fragment.app.FragmentPagerAdapter;
         import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
         import androidx.viewpager.widget.ViewPager;
-
-        import android.app.Activity;
         import android.content.Context;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.graphics.Color;
         import android.graphics.drawable.ColorDrawable;
         import android.os.Bundle;
-        import android.os.Handler;
         import android.preference.PreferenceManager;
-        import android.text.Layout;
         import android.util.Log;
         import android.view.LayoutInflater;
-        import android.view.Menu;
-        import android.view.MenuItem;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.widget.Button;
         import android.widget.EditText;
-        import android.widget.ImageButton;
         import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
-
         import com.google.android.material.tabs.TabLayout;
-        import com.tech41.app.Adapter.FriendsAdapter;
         import com.tech41.app.Fragments.NotificationFragment;
         import com.tech41.app.Fragments.RequestsFragment;
         import com.tech41.app.Fragments.FriendsFragment;
+        import com.tech41.app.JWT.JWTUtils;
         import com.tech41.app.JWT.TokenManager;
         import com.tech41.app.Model.Invitation;
         import com.tech41.app.Model.ResponseError;
         import com.tech41.app.Model.TblFriends;
+        import com.tech41.app.Model.user;
         import com.tech41.app.Remote.Api;
         import com.tech41.app.Remote.RetrofitClient;
         import org.json.JSONObject;
         import java.util.ArrayList;
+        import java.util.List;
         import java.util.Timer;
         import java.util.TimerTask;
+        import java.util.jar.Manifest;
+
         import de.hdodenhof.circleimageview.CircleImageView;
         import dmax.dialog.SpotsDialog;
         import retrofit2.Call;
         import retrofit2.Callback;
         import retrofit2.Response;
 
-        import static com.tech41.app.LoginActivity.usernameSave;
+        import static com.tech41.app.MainActivity.token;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,11 +65,15 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     public static String uId;
     public static String token;
-
+    MyAccountActivity myAccountActivity;
+    JWTUtils jwtUtils;
+    TokenManager tokenManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
@@ -87,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
-
-
 
         if (profile_image.equals(null)) {
             profile_image.setImageResource(R.mipmap.ic_launcher_round);
@@ -147,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void moveToProfile(View view) {
-        Intent intent = new Intent(MainActivity.this,MyAccountActivity.class);
+
+        Intent  intent = new Intent(MainActivity.this,TestActivity.class);
         startActivity(intent);
     }
 

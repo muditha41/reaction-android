@@ -1,6 +1,7 @@
 package com.tech41.app.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             username = itemView.findViewById(R.id.username);
             notification_txt = itemView.findViewById(R.id.notification_txt);
             time_text = itemView.findViewById(R.id.time);
+            Notification_Layout = itemView.findViewById(R.id.Notification_Layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,14 +81,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         TblNotifications tblNotifications = notificationsList.get(position);
         String username = tblNotifications.getFriend().getUserName();
         String notification = tblNotifications.getNotification();
+        String state = tblNotifications.getState();
         String time = tblNotifications.getTime();
-        int color = tblNotifications.getBgcolor();
 
         holder.username.setText(username);
         holder.notification_txt.setText(notification);
-
-        if(color==1){
-            holder.time_text.setText("click");
+        if(state.equals("true")){
+            holder.Notification_Layout.setBackgroundColor(Color.parseColor("#EEEBFD"));
+        }else {
+            holder.Notification_Layout.setBackgroundColor(Color.WHITE);
         }
     }
 

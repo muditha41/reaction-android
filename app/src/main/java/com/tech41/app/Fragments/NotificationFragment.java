@@ -79,26 +79,26 @@ public class NotificationFragment extends Fragment {
 
                 // API not found method error
 
-//                Api api = RetrofitClient.getInstance().create(Api.class);
-//                Call<ResponseError> call = api.checkNotifications("Bearer "+token,uId);
-//                call.enqueue(new Callback<ResponseError>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
-//                        if (response.isSuccessful()) {
-//                            tblNotifications.get(position).changeBgColor(1);
-//                        }
-//                        else
-//                            try {
-//                                JSONObject obj = new JSONObject(response.errorBody().string());
-//                                String e = (obj.getString("message"));
-//                            } catch (Exception e) { }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseError> call, Throwable t) {
-//                        Log.e("Error",t.getLocalizedMessage());
-//                    }
-//                });
+                Api api = RetrofitClient.getInstance().create(Api.class);
+                Call<ResponseError> call = api.checkNotifications("Bearer "+token,uId);
+                call.enqueue(new Callback<ResponseError>() {
+                    @Override
+                    public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
+                        if (response.isSuccessful()) {
+                            notificationAdapter.notifyDataSetChanged();
+                        }
+                        else
+                            try {
+                                JSONObject obj = new JSONObject(response.errorBody().string());
+                                String e = (obj.getString("message"));
+                            } catch (Exception e) { }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseError> call, Throwable t) {
+                        Log.e("Error",t.getLocalizedMessage());
+                    }
+                });
             }
         });
 
@@ -139,7 +139,6 @@ public class NotificationFragment extends Fragment {
                     recyclerView.setAdapter(notificationAdapter);
                     String count = String.valueOf(tblNotifications.size()); // notification count
                  //   notificationCounter.NotificationCount(count);
-
                 }
 
                 else
@@ -158,6 +157,8 @@ public class NotificationFragment extends Fragment {
             }
         });
     }
+
+
 
 
 }

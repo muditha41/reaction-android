@@ -1,13 +1,16 @@
 package com.tech41.app;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tech41.app.JWT.JWTUtils;
 import com.tech41.app.JWT.TokenManager;
 
 import java.util.Timer;
@@ -21,18 +24,25 @@ public class StartActivity extends AppCompatActivity {
     Timer timer;
     TokenManager tokenManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
             super.onStart();
+        try {
             checkSession();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-        private void checkSession() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        private void checkSession() throws Exception {
             //check session
             this.tokenManager = new TokenManager(StartActivity.this);
             String KeyName = tokenManager.getSession();
 
             if(KeyName!="0"){
+                tokenManager.createLoginSession(KeyName, JWTUtils.decordeJWT(KeyName));
                 moveToMainActivity();
             }else {
                 moveToLogin();

@@ -8,23 +8,20 @@ public class TblNotifications {
     private user friend;
     private String notification;
     private String time;
-    private int Bgcolor = 0;
+    private String state;
 
 
     public TblNotifications() {
     }
 
-    public TblNotifications(int userNotificationId, user friend, String notification, String time, String text) {
+    public TblNotifications(int userNotificationId, user friend, String notification, String time, String state, String text) {
         this.userNotificationId = userNotificationId;
         this.friend = friend;
         this.notification = notification;
         this.time = time;
+        this.state = state;
         this.text = text;
-        this.Bgcolor = Bgcolor;
     }
-   public void changeBgColor(int color){
-       Bgcolor = color;
-   }
 
     public int getUserNotificationId() {
         return userNotificationId;
@@ -58,16 +55,20 @@ public class TblNotifications {
         this.time = time;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getBgcolor() {
-        return Bgcolor;
     }
 
     @SerializedName("body")
