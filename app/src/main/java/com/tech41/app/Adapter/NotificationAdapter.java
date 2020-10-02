@@ -21,6 +21,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private List<TblNotifications> notificationsList;
     private Context context;
     private OnItemClickListener mlistener;
+    private TextView notificationNumber;
 
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -96,6 +97,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public int getItemCount() {
         return notificationsList.size();
+
     }
 
 

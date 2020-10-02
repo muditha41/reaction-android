@@ -50,6 +50,7 @@ import retrofit2.Response;
 
 import static com.tech41.app.MainActivity.token;
 import static com.tech41.app.MainActivity.uId;
+import static java.sql.DriverManager.println;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -128,23 +129,18 @@ userProfileImage.setOnClickListener(new View.OnClickListener() {
         Bitmap bitmap = bitmapDrawable.getBitmap();
       //   convert img to bitmap
          //   Bitmap bm = ImageManager.getBitmap(resultUri.toString());
-             byte[] bytes = ImageManager.getBytesFromBitmap(bitmap,100);
-        String imgString = Base64.encodeToString(bytes,
-                Base64.NO_WRAP);
-       // byte[] bytes = {-1,2,-3,4,5};
+        byte[] bytes = ImageManager.getBytesFromBitmap(bitmap,100);
+        byte[] encoded = Base64.encode(bytes,Base64.DEFAULT);
+        String imgString =new String(encoded);
+
+       // byte[] decoded = Base64.decode(encodedstr,Base64.DEFAULT);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
         token = preferences.getString("keyname","");
         uId = preferences.getString("id","");
-        ImageUpdate imageUpdate = new ImageUpdate(
-            uId,imgString);
-
-        byte[] byteArrray = imgString.getBytes();
-
+        ImageUpdate imageUpdate = new ImageUpdate(uId,imgString);
         Api api = RetrofitClient.getInstance().create(Api.class);
-
-
-      //  RequestBody value = RequestBody.create(MediaType.parse("application/octet-stream"), bytes);
         Call<ResponseError> call = api.updateimage("Bearer "+token,imageUpdate);
         call.enqueue(new Callback<ResponseError>() {
             @Override

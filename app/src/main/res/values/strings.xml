@@ -24,8 +24,8 @@
     <string name="relationship_prompt">Choose a country</string>
     <string-array name="relationship_arrays">
         <item>Single</item>
-        <item>In a Relationship </item>
-        <item>Married </item>
+        <item>In a Relationship</item>
+        <item>Married</item>
     </string-array>
 
 
@@ -35,6 +35,7 @@
         <item>Japan</item>
         <item>USA</item>
         <item>UAE</item>
+        <item>Kegalle</item>
 
     </string-array>
 

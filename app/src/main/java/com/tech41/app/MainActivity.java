@@ -13,10 +13,13 @@ package com.tech41.app;
         import android.content.Context;
         import android.content.Intent;
         import android.content.SharedPreferences;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
         import android.graphics.Color;
         import android.graphics.drawable.ColorDrawable;
         import android.os.Bundle;
         import android.preference.PreferenceManager;
+        import android.util.Base64;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -73,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
          token = preferences.getString("keyname","");
@@ -88,12 +89,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
-        if (profile_image.equals(null)) {
-            profile_image.setImageResource(R.mipmap.ic_launcher_round);
-        } else {
-            profile_image.setImageResource(R.mipmap.ic_launcher_round);
-        }
+        setProfileImage();
 
         //add new friend button
         Button addfriendButton = findViewById(R.id.btn_addFriends);
@@ -143,10 +139,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setProfileImage() {
+        Api api = RetrofitClient.getInstance().create(Api.class);
+        Call<user> call = api.getUserDetails("Bearer "+token, uId);
+        call.enqueue(new Callback<user>() {
+            @Override
+            public void onResponse(Call<user> call, Response<user> response) {
+
+                if (response.isSuccessful())
+                {
+                    user userdata = response.body();
+                    profile_image = findViewById(R.id.profile_image);
+                    //image decorde
+                    String imgString = userdata.getImage();
+                    if(imgString!=null){
+                        byte[] decoded = Base64.decode(imgString,Base64.DEFAULT);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
+                        profile_image.setImageBitmap(bitmap);
+
+                    }else {
+                        profile_image.setImageResource(R.mipmap.ic_launcher_round);
+                    }
+
+                }
+                else   Log.d("error","not found");
+
+            }
+            @Override
+            public void onFailure(Call<user> call, Throwable t) {
+
+                Log.e("failure",t.getLocalizedMessage());
+            }
+        });
+    }
+
 
     public void moveToProfile(View view) {
-
-        Intent  intent = new Intent(MainActivity.this,TestActivity.class);
+        Intent  intent = new Intent(MainActivity.this,MyAccountActivity.class);
         startActivity(intent);
     }
 
@@ -187,10 +216,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addFriendDilaog(){
-        //save data
-        preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);
-        String token = preferences.getString("keyname","");
-        String id = preferences.getString("id","");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.addfriend_dialog,null);
@@ -212,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
               String  frndEmail = frnd_email.getText().toString();
-              Invitation invitation = new Invitation(id, frnd_email.getText().toString());
+              Invitation invitation = new Invitation(uId, frnd_email.getText().toString());
                 Api api = RetrofitClient.getInstance().create(Api.class);
 
                 Call<ResponseError> call = api.sendInvitation("Bearer "+token,invitation);

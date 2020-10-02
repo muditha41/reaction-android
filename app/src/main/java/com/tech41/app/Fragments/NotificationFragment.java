@@ -1,6 +1,7 @@
 package com.tech41.app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.tech41.app.Adapter.NotificationAdapter;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblNotifications;
+import com.tech41.app.MyAccountActivity;
 import com.tech41.app.NotificationCounter;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
@@ -26,6 +28,7 @@ import com.tech41.app.Remote.RetrofitClient;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,13 +44,13 @@ public class NotificationFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     RecyclerView recyclerView;
-    TextView error_txt,notificationNumber;
+    TextView error_txt;
     NotificationAdapter notificationAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     int count = 0;
     private Context context;
     List<TblNotifications> tblNotifications;
- private NotificationCounter notificationCounter;
+     public static String Ncount;
 
 
 
@@ -137,8 +140,7 @@ public class NotificationFragment extends Fragment {
                     List<TblNotifications> tblNotifications = response.body();
                     notificationAdapter.setData(tblNotifications);
                     recyclerView.setAdapter(notificationAdapter);
-                    String count = String.valueOf(tblNotifications.size()); // notification count
-                 //   notificationCounter.NotificationCount(count);
+                     Ncount = String.valueOf(tblNotifications.size()); // notification count
                 }
 
                 else

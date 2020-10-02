@@ -1,11 +1,15 @@
 package com.tech41.app.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tech41.app.Model.Invitation;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.user;
 import com.tech41.app.Model.userStatusUpdate;
+import com.tech41.app.MyAccountActivity;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
+import com.tech41.app.Remote.ImageManager;
 import com.tech41.app.Remote.RetrofitClient;
 import com.tech41.app.StatusActivity;
 
@@ -41,6 +48,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
     private List<TblFriends> friendsResposeList;
     private Context context;
     SharedPreferences preferences;
+    private List<user>userdata;
 
     public FriendsAdapter() {
     }
@@ -66,9 +74,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         String second_text = tblFriends.getUserStatus().getStatusState();
         String time_text = tblFriends.getUserStatus().getTime();
 
+        //image decorde
+        String imgString = tblFriends.getUser().getImage();
+        byte[] decoded = Base64.decode(imgString,Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
+
         holder.username.setText(username);
         holder.second_text.setText(second_text);
         holder.time_text.setText(time_text);
+        holder.profile_image.setImageBitmap(bitmap);
 
         // message status and icons
         if(second_text != null) {

@@ -10,26 +10,25 @@ public class user implements Serializable {
 
     private  String id;
     private String userName;
+    private String fullName;
     private  String email;
     private String description;
     private String location;
     private String workPlace;
     private String relationshipStatus;
-   // private byte[] image;
+    private String image;
 
-
-    public user() {
-    }
-
-    public user(String id, String userName, String email, String description, String location, String workPlace, String relationshipStatus) {
+    public user(String id, String userName, String fullName, String email, String description, String location, String workPlace, String relationshipStatus, String image, String text) {
         this.id = id;
         this.userName = userName;
+        this.fullName = fullName;
         this.email = email;
         this.description = description;
         this.location = location;
         this.workPlace = workPlace;
         this.relationshipStatus = relationshipStatus;
-      //  this.image = image;
+        this.image = image;
+        this.text = text;
     }
 
     public String getId() {
@@ -46,6 +45,14 @@ public class user implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -88,13 +95,13 @@ public class user implements Serializable {
         this.relationshipStatus = relationshipStatus;
     }
 
-//    public byte[] getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(byte[] image) {
-//        this.image = image;
-//    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
 
     @SerializedName("body")

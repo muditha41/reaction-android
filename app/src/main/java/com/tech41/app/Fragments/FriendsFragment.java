@@ -17,13 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tech41.app.Adapter.FriendsAdapter;
+import com.tech41.app.Adapter.NotificationAdapter;
 import com.tech41.app.JWT.TokenManager;
 import com.tech41.app.MainActivity;
 import com.tech41.app.Model.TblFriends;
+import com.tech41.app.MyAccountActivity;
+import com.tech41.app.NotificationCounter;
 import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
+import com.tech41.app.StatusActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +42,7 @@ public class FriendsFragment extends Fragment {
     SharedPreferences preferences;
     RecyclerView recyclerView;
     FriendsAdapter friendsAdapter;
+    MyAccountActivity myAccountActivity;
     int count = 0;
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -64,31 +70,30 @@ public class FriendsFragment extends Fragment {
         });
 
         friendsAdapter = new FriendsAdapter();
-       content();
+   //    content();
        getFriends();
         return view;
     }
 
-    private void content() {
-        count++;
-        getFriends();
-        refresh(2000);
-    }
+//    private void content() {
+//        count++;
+//        getFriends();
+//        refresh(2000);
+//    }
 
-    private void  refresh(int miliseconds){
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                content();
-            }
-        }; handler.postDelayed(runnable, miliseconds);
-    }
+//    private void  refresh(int miliseconds){
+//        final Handler handler = new Handler();
+//        final Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                content();
+//            }
+//        }; handler.postDelayed(runnable, miliseconds);
+//    }
 
     public void getFriends()
     {
     Api api = RetrofitClient.getInstance().create(Api.class);
-
     Call<List<TblFriends>> call = api.getfriendslist("Bearer "+token, uId);
         call.enqueue(new Callback<List<TblFriends>>() {
         @Override
