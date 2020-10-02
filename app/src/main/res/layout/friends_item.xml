@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/profile_image"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@drawable/ic_launcher_round"/>
 
     <TextView
         android:id="@+id/username"

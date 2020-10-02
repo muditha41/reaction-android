@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Fragments.FriendsFragment;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblFriends;
@@ -55,6 +56,7 @@ public class SelectorDialog extends AppCompatDialogFragment {
     private static String selected_icon;
     Timer timer;
     private SelectorDialogListner listner;
+    FriendsFragment friendsFragment;
 
     public SelectorDialog( TblFriends userfriend) {
          this.userfriend=userfriend;
@@ -175,9 +177,6 @@ public class SelectorDialog extends AppCompatDialogFragment {
             @Override
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
-
-
-
                 }
                 else
                     try {

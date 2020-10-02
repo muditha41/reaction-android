@@ -12,10 +12,10 @@ public class user implements Serializable {
     private String userName;
     private String fullName;
     private  String email;
-    private String description;
-    private String location;
-    private String workPlace;
-    private String relationshipStatus;
+    private String description =null;
+    private String location=null;
+    private String workPlace=null;
+    private String relationshipStatus=null;
     private String image;
 
     public user(String id, String userName, String fullName, String email, String description, String location, String workPlace, String relationshipStatus, String image, String text) {

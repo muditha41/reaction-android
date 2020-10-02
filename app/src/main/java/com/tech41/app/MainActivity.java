@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         profile_image.setImageBitmap(bitmap);
 
                     }else {
-                        profile_image.setImageResource(R.mipmap.ic_launcher_round);
+                        profile_image.setImageResource(R.drawable.ic_launcher_round);
                     }
 
                 }

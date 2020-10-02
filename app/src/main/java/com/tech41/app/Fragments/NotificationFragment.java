@@ -44,7 +44,6 @@ public class NotificationFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     RecyclerView recyclerView;
-    TextView error_txt;
     NotificationAdapter notificationAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     int count = 0;
@@ -58,7 +57,6 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_notification,container,false);
-        error_txt = view.findViewById(R.id.error_txt);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -146,8 +144,7 @@ public class NotificationFragment extends Fragment {
                 else
                     try {
                         JSONObject obj = new JSONObject(response.errorBody().string());
-                        error_txt.setText(obj.getString("Error"));
-                        error_txt.setVisibility(View.VISIBLE);
+                        String e = (obj.getString("message").toString());
 
                     } catch (Exception e) { }
 

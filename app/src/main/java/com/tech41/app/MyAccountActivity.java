@@ -42,6 +42,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -60,6 +62,7 @@ public class MyAccountActivity extends AppCompatActivity {
     CircleImageView profile_image;
     Uri uri;
     private static final int ACCESS_FILE=43;
+    Timer timer;
 
 
 
@@ -93,7 +96,9 @@ public class MyAccountActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 profile_image.setImageURI(resultUri);
-                Toast.makeText(MyAccountActivity.this,"Image Crop Successfuly!",Toast.LENGTH_SHORT).show();
+                updateDbProfileImage();
+
+                Toast.makeText(MyAccountActivity.this,"Profile image uploaded Successfuly!",Toast.LENGTH_SHORT).show();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Toast.makeText(MyAccountActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
@@ -101,7 +106,7 @@ public class MyAccountActivity extends AppCompatActivity {
         }
     }
 
-        private void startCrop(Uri FILE_URI) {
+    private void startCrop(Uri FILE_URI) {
             CropImage.activity(FILE_URI)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setCropShape(CropImageView.CropShape.OVAL)
@@ -154,14 +159,14 @@ public class MyAccountActivity extends AppCompatActivity {
             input_relationship_drop.setText(userdata.getRelationshipStatus());
 
             //image decorde
-            String imgString = userdata.getImage();
-            if(imgString!=null){
+            if(userdata.getImage()!=null){
+                String imgString = userdata.getImage() ;
                 byte[] decoded = Base64.decode(imgString,Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
                 profile_image.setImageBitmap(bitmap);
 
             }else {
-                profile_image.setImageResource(R.mipmap.ic_launcher_round);
+                profile_image.setImageResource(R.drawable.ic_launcher_round);
             }
        }
     }
@@ -183,6 +188,7 @@ public class MyAccountActivity extends AppCompatActivity {
     }
 
     private void updateDbProfileImage() {
+        CircleImageView profile_image = (CircleImageView)findViewById(R.id.profile_image);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) profile_image.getDrawable();
         Bitmap bitmap = bitmapDrawable.getBitmap();
 

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.tech41.app.Adapter.RequestsAdapter;
 import com.tech41.app.Model.Invitation;
@@ -53,8 +54,6 @@ public class RequestsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
         requestsAdapter = new RequestsAdapter();
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -65,26 +64,26 @@ public class RequestsFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        content();
+     //   content();
         getRequests();
         return view;
     }
 
-    private void content() {
-        count++;
-        getRequests();
-        refresh(2000);
-    }
-
-    private void  refresh(int miliseconds){
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                content();
-            }
-        }; handler.postDelayed(runnable, miliseconds);
-    }
+//    private void content() {
+//        count++;
+//        getRequests();
+//        refresh(2000);
+//    }
+//
+//    private void  refresh(int miliseconds){
+//        final Handler handler = new Handler();
+//        final Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                content();
+//            }
+//        }; handler.postDelayed(runnable, miliseconds);
+//    }
 
     public void getRequests()
     {
@@ -105,9 +104,14 @@ public class RequestsFragment extends Fragment {
                     List<TblRequests> tblRequests = response.body();
                     requestsAdapter.setData(tblRequests);
                     recyclerView.setAdapter(requestsAdapter);
-                    //    Log.e("success",response.body().toString());
                 }
-                else   Log.d("error","Your contact list is empty. Invite yor firends");
+                else
+                    try {
+                       // recyclerView.setVisibility(View.GONE);
+                        JSONObject obj = new JSONObject(response.errorBody().string());
+                        String e = (obj.getString("message").toString());
+
+                    } catch (Exception e) { }
             }
 
             @Override

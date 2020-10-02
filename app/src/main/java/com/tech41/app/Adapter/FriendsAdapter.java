@@ -75,14 +75,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         String time_text = tblFriends.getUserStatus().getTime();
 
         //image decorde
-        String imgString = tblFriends.getUser().getImage();
-        byte[] decoded = Base64.decode(imgString,Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
+        if(tblFriends.getFriend().getImage()!=null) {
+            String imgString = tblFriends.getFriend().getImage();
+            byte[] decoded = Base64.decode(imgString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+            holder.profile_image.setImageBitmap(bitmap);
+        }else {
+            holder.profile_image.setImageResource(R.drawable.ic_launcher_round);
+        }
 
         holder.username.setText(username);
         holder.second_text.setText(second_text);
         holder.time_text.setText(time_text);
-        holder.profile_image.setImageBitmap(bitmap);
+
 
         // message status and icons
         if(second_text != null) {
@@ -99,16 +104,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
             }
         }else {
             holder.second_text.setVisibility(View.GONE);
+            holder.second_text.setText("New Friend");
             holder.new_satatus_icon.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(context, StatusActivity.class);
-                intent.putExtra("userFriend", tblFriends);
-                context.startActivity(intent);
+                    Intent intent = new Intent(context, StatusActivity.class);
+                    intent.putExtra("userFriend", tblFriends);
+                    context.startActivity(intent);
 
                 //status state check
                 preferences = context.getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);

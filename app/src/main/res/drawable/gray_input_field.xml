@@ -3,5 +3,4 @@
     <solid android:color="@color/inputLightGray"/>
     <corners android:radius="15dp"/>
     <padding android:left="25sp"/>
-
 </shape>

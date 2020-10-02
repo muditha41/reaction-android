@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Adapter.NotificationAdapter;
@@ -27,6 +28,8 @@ import com.tech41.app.R;
 import com.tech41.app.Remote.Api;
 import com.tech41.app.Remote.RetrofitClient;
 import com.tech41.app.StatusActivity;
+
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.List;
@@ -57,20 +60,18 @@ public class FriendsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getFriends();
-               friendsAdapter.notifyAll();
                 friendsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
         friendsAdapter = new FriendsAdapter();
-   //    content();
+       // content();
        getFriends();
         return view;
     }
@@ -80,7 +81,7 @@ public class FriendsFragment extends Fragment {
 //        getFriends();
 //        refresh(2000);
 //    }
-
+//
 //    private void  refresh(int miliseconds){
 //        final Handler handler = new Handler();
 //        final Runnable runnable = new Runnable() {
@@ -105,9 +106,13 @@ public class FriendsFragment extends Fragment {
                 friendsAdapter.setData(tblFriends);
                 recyclerView.setAdapter(friendsAdapter);
                 friendsAdapter.notifyDataSetChanged();
-            }
-            else   Log.d("error","Your contact list is empty. Invite yor firends");
 
+            } else
+                try {
+                    JSONObject obj = new JSONObject(response.errorBody().string());
+                    String e = (obj.getString("message").toString());
+
+                } catch (Exception e) { }
         }
         @Override
         public void onFailure(Call<List<TblFriends>> call, Throwable t) {
