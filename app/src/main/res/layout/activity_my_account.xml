@@ -6,122 +6,189 @@
     android:layout_height="match_parent"
     tools:context=".MyAccountActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/input_about"
-        android:layout_width="303dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="308dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/gray_input_field"
-        android:fontFamily="@font/regular"
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/aboutInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:endIconCheckable="true"
+        app:endIconContentDescription="edit"
+        app:endIconDrawable="@drawable/icon_textedit"
+        app:endIconMode="custom"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/input_about"
+            android:layout_width="303dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:background="@drawable/gray_input_field"
+            android:focusable="false"
+            android:fontFamily="@font/regular"
+            android:gravity="center"
+            android:hint=""
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:minLines="6"
+            android:padding="10dp"
+            android:paddingLeft="20dp"
+            android:selectAllOnFocus="true"
+            android:textSize="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lives_drop_InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:hint="Describe yourself"
-        android:inputType="textMultiLine"
-        android:maxLines="10"
-        android:focusable="false"
-        android:minLines="6"
-        android:padding="10dp"
-        android:selectAllOnFocus="true"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:endIconCheckable="true"
+        app:endIconContentDescription="edit"
+        app:endIconDrawable="@drawable/icon_textedit"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/workplace_InputLayout"
+        app:startIconDrawable="@drawable/location_icon"
+        tools:layout_editor_absoluteX="0dp">
 
-    <EditText
-        android:id="@+id/input_name"
-        android:layout_width="350dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/gray_input_field"
-        android:drawableLeft="@drawable/user_icon"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/regular"
-        android:hint="Name"
-        android:focusable="false"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:textColorHint="@color/fontLightGray"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/input_lives_drop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_about"
-        app:layout_constraintVertical_bias="0.703" />
+        <EditText
+            android:id="@+id/input_lives_drop"
+            android:layout_width="350dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="364dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/gray_input_field"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:fontFamily="@font/regular"
+            android:hint=""
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:textColorHint="@color/fontLightGray"
+            android:textSize="16dp" />
 
-    <EditText
-        android:id="@+id/input_lives_drop"
-        android:layout_width="350dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="364dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/gray_input_field"
-        android:drawableLeft="@drawable/location_icon"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/regular"
-        android:hint="Location"
-        android:focusable="false"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:textColorHint="@color/fontLightGray"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/input_workplace"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/input_workplace"
-        android:layout_width="350dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/gray_input_field"
-        android:drawableLeft="@drawable/bag_icon"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/regular"
-        android:hint="Workplace"
-        android:inputType="text"
-        android:focusable="false"
-        android:selectAllOnFocus="true"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/input_relationship_drop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:endIconCheckable="true"
+        app:endIconContentDescription="edit"
+        app:endIconDrawable="@drawable/icon_textedit"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/lives_drop_InputLayout"
+        app:startIconDrawable="@drawable/user_icon"
+        tools:layout_editor_absoluteX="16dp">
 
-    <EditText
-        android:id="@+id/input_relationship_drop"
-        android:layout_width="350dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="36dp"
-        android:background="@drawable/gray_input_field"
-        android:drawableLeft="@drawable/relationship_icon"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/regular"
-        android:hint="Relationship "
-        android:inputType="text"
-        android:focusable="false"
-        android:selectAllOnFocus="true"
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="350dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/gray_input_field"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:fontFamily="@font/regular"
+            android:hint=""
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:textColorHint="@color/fontLightGray"
+            android:textSize="16dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/workplace_InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:endIconCheckable="true"
+        app:endIconContentDescription="edit"
+        app:endIconDrawable="@drawable/icon_textedit"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/relationship_drop_InputLayout"
+        app:startIconDrawable="@drawable/bag_icon"
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/input_workplace"
+            android:layout_width="352dp"
+            android:layout_height="43dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/gray_input_field"
+            android:drawableLeft="@drawable/bag_icon"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:fontFamily="@font/regular"
+            android:hint=""
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:textColorHint="@color/fontLightGray"
+            android:textSize="16dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/relationship_drop_InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:endIconCheckable="true"
+        app:endIconContentDescription="edit"
+        app:endIconDrawable="@drawable/icon_textedit"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:startIconDrawable="@drawable/bag_icon"
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/input_relationship_drop"
+            android:layout_width="350dp"
+            android:layout_height="43dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/gray_input_field"
+            android:drawableLeft="@drawable/relationship_icon"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:fontFamily="@font/regular"
+            android:hint=""
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:textColorHint="@color/fontLightGray"
+            android:textSize="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="181dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/button"
         android:onClick="Logout"
         android:text="Log out"
@@ -136,22 +203,27 @@
         android:id="@+id/profile_image"
         android:layout_width="154dp"
         android:layout_height="154dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:onClick="updateImage"
         android:src="@drawable/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:onClick="updateImage"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.theartofdev.edmodo.cropper.CropImageView
         android:id="@+id/cropImageView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
         app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.theartofdev.edmodo.cropper.CropImageView>
 
     <TextView
         android:id="@+id/textView"
@@ -171,14 +243,14 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/bold"
         android:text="About"
         android:textColor="@color/fontBlack"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/input_about"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
     <ImageView
         android:id="@+id/back_button"
@@ -191,6 +263,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_btn"
         android:onClick="moveToMainActivity"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.TblNotifications;
 import com.tech41.app.Model.TblRequests;
 import com.tech41.app.Model.TblUser;
+import com.tech41.app.Model.UserUpdate;
 import com.tech41.app.Model.user;
 import com.tech41.app.Model.userStatusUpdate;
 
@@ -78,5 +79,8 @@ public interface Api {
     @GET("/Account/{uid}/profile")
     Call<user> getUserDetails(@Header("Authorization")String authToken, @Path("uid") String uid);
 
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("/Account/updatedetails")
+    Call<ResponseError> updateUserDetails(@Header("Authorization")String authToken,  @Body UserUpdate userUpdate);
 
 }
