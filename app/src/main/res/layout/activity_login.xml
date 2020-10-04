@@ -100,7 +100,7 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="181dp"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/button"
         android:onClick="login"
@@ -119,6 +119,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
         android:fontFamily="@font/regular"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Don't have an Account? Sign Up"
         android:textColor="@color/fontLightGray"
         android:textSize="14dp"

@@ -103,26 +103,26 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-        content();
+        //content();
         getNotification();
         return view;
     }
 
-    private void content() {
-        count++;
-        getNotification();
-        refresh(5000);
-    }
-
-    private void refresh(int miliseconds) {
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                content();
-            }
-        }; handler.postDelayed(runnable, miliseconds);
-    }
+//    private void content() {
+//        count++;
+//        getNotification();
+//        refresh(5000);
+//    }
+//
+//    private void refresh(int miliseconds) {
+//        final Handler handler = new Handler();
+//        final Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                content();
+//            }
+//        }; handler.postDelayed(runnable, miliseconds);
+//    }
 
     private void getNotification() {
 

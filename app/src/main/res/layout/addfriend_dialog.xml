@@ -13,9 +13,18 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_width="350dp"
-        android:layout_height="376dp"
+        android:layout_height="400dp"
         android:background="@drawable/dialog_background">
 
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/close_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="left"
+            app:srcCompat="@drawable/ic_close"
+            android:onClick="closeDialogbox"/>
 
         <EditText
             android:layout_marginTop="100dp"
@@ -24,8 +33,7 @@
             android:layout_width="276dp"
             android:layout_height="52dp"
             android:background="@drawable/white_input_field"
-            android:hint="Email"
-            android:imeActionLabel="@string/action_sign_in_short"
+            android:hint="Enter Email"
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="true"
@@ -39,14 +47,15 @@
             android:layout_marginRight="55dp"
             android:layout_marginBottom="50dp"
             android:gravity="center"
+            android:textSize="16sp"
             android:text="Send my friend a request."
             android:textAlignment="viewStart"
             tools:ignore="RtlCompat" />
 
         <Button
             android:id="@+id/btn_request_send"
-            android:layout_width="181dp"
-            android:layout_height="41dp"
+            android:layout_width="190dp"
+            android:layout_height="50dp"
             android:background="@drawable/button"
             android:text="Invite to my list"
             android:textAllCaps="false"

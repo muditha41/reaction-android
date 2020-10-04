@@ -104,6 +104,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         holder.username.setText(username);
         holder.notification_txt.setText(notification);
+        holder.time_text.setText(time);
         if(state.equals("true")){
             holder.Notification_Layout.setBackgroundColor(Color.parseColor("#EEEBFD"));
         }else {

@@ -114,7 +114,7 @@
     <Button
         android:id="@+id/btn_register"
         android:layout_width="181dp"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:background="@drawable/button"
         android:text="@string/action_sign_up"
         android:textAllCaps="false"

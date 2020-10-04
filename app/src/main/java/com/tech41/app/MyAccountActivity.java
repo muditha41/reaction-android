@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.ListAdapter;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -22,6 +23,10 @@ import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -81,16 +86,39 @@ public class MyAccountActivity extends AppCompatActivity {
         // TextInputLayout and Text input
         TextInputLayout aboutInputLayout = (TextInputLayout)findViewById(R.id.aboutInputLayout);
         TextInputLayout nameInputLayout = (TextInputLayout)findViewById(R.id.nameInputLayout);
-        TextInputLayout lives_dropInputLayout = (TextInputLayout)findViewById(R.id.lives_drop_InputLayout);
-        TextInputLayout workplaceInputLayout = (TextInputLayout)findViewById(R.id.workplace_InputLayout);
-        TextInputLayout relationship_dropInputLayout = (TextInputLayout)findViewById(R.id.relationship_drop_InputLayout);
+        TextInputLayout lives_drop_InputLayout = (TextInputLayout)findViewById(R.id.lives_drop_InputLayout);
+        TextInputLayout workplace_InputLayout = (TextInputLayout)findViewById(R.id.workplace_InputLayout);
+        TextInputLayout relationship_drop_InputLayout = (TextInputLayout)findViewById(R.id.relationship_drop_InputLayout);
+
 
         //Edit Text
         EditText input_about = (EditText)findViewById(R.id.input_about);
         EditText input_name = (EditText)findViewById(R.id.input_name);
-        EditText input_lives_drop = (EditText)findViewById(R.id.input_lives_drop);
+        AutoCompleteTextView input_lives_drop = (AutoCompleteTextView)findViewById(R.id.input_lives_drop);
         EditText input_workplace = (EditText)findViewById(R.id.input_workplace);
-        EditText input_relationship_drop = (EditText)findViewById(R.id.input_relationship_drop);
+        AutoCompleteTextView input_relationship_dropdown = (AutoCompleteTextView)findViewById(R.id.input_relationship_dropdown);
+
+        String[] items = new String[]{
+                "Single",
+                "In Relationship",
+                "Married",
+                "Divorced"
+        };
+
+        ArrayAdapter<String>  adapter = new ArrayAdapter<>(MyAccountActivity.this, R.layout.dropdown_item, items);
+        input_relationship_dropdown.setAdapter(adapter);
+
+        String[] locationitems = new String[]{
+                "Colombo",
+                "Kandy",
+                "Galle",
+                "Gampaha"
+        };
+
+        ArrayAdapter<String> LocationAdapter = new ArrayAdapter<>(MyAccountActivity.this, R.layout.dropdown_item, locationitems);
+        input_lives_drop.setAdapter(LocationAdapter);
+
+
 
 
         //update details click listners
@@ -99,10 +127,12 @@ public class MyAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(aboutInputLayout.getEndIconContentDescription().equals("edit")){
                     input_about.setFocusable(true);
+                    input_about.setFocusableInTouchMode(true);
                     aboutInputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
                     aboutInputLayout.setEndIconContentDescription("update");
                 }else if(aboutInputLayout.getEndIconContentDescription().equals("update")) {
                     input_about.setFocusable(false);
+                    input_about.setFocusableInTouchMode(false);
                     aboutInputLayout.setEndIconDrawable(R.drawable.icon_textedit);
                     aboutInputLayout.setEndIconContentDescription("edit");
                    String value =  input_about.getText().toString();
@@ -113,61 +143,55 @@ public class MyAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(nameInputLayout.getEndIconContentDescription().equals("edit")){
-                    input_name.setFocusable(true);
+                    input_name.setFocusable(true );
+                    input_name.setFocusableInTouchMode(true);
                     nameInputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
                     nameInputLayout.setEndIconContentDescription("update");
                 }else if(nameInputLayout.getEndIconContentDescription().equals("update")) {
                     input_name.setFocusable(false);
+                    input_name.setFocusableInTouchMode(false);
                     nameInputLayout.setEndIconDrawable(R.drawable.icon_textedit);
                     nameInputLayout.setEndIconContentDescription("edit");
                     String value =  input_name.getText().toString();
                     updateDbProfileDtails(2,value); }}});
 
-        lives_dropInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(lives_dropInputLayout.getEndIconContentDescription().equals("edit")){
-                    input_lives_drop.setFocusable(true);
-                    lives_dropInputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
-                    lives_dropInputLayout.setEndIconContentDescription("update");
-                }else if(lives_dropInputLayout.getEndIconContentDescription().equals("update")) {
-                    input_lives_drop.setFocusable(false);
-                    lives_dropInputLayout.setEndIconDrawable(R.drawable.icon_textedit);
-                    lives_dropInputLayout.setEndIconContentDescription("edit");
-                    String value =  input_lives_drop.getText().toString();
-                    updateDbProfileDtails(3,value); }}});
 
-        workplaceInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+        input_lives_drop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String value =  LocationAdapter.getItem(position).toString();
+                updateDbProfileDtails(3,value);
+            }
+        });
+
+        workplace_InputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(workplaceInputLayout.getEndIconContentDescription().equals("edit")){
+                if(workplace_InputLayout.getEndIconContentDescription().equals("edit")){
                     input_workplace.setFocusable(true);
-                    workplaceInputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
-                    workplaceInputLayout.setEndIconContentDescription("update");
-                }else if(workplaceInputLayout.getEndIconContentDescription().equals("update")) {
+                    input_workplace.setFocusableInTouchMode(true);
+                    workplace_InputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
+                    workplace_InputLayout.setEndIconContentDescription("update");
+                }else if(workplace_InputLayout.getEndIconContentDescription().equals("update")) {
                     input_workplace.setFocusable(false);
-                    workplaceInputLayout.setEndIconDrawable(R.drawable.icon_textedit);
-                    workplaceInputLayout.setEndIconContentDescription("edit");
+                    input_workplace.setFocusableInTouchMode(false);
+                    workplace_InputLayout.setEndIconDrawable(R.drawable.icon_textedit);
+                    workplace_InputLayout.setEndIconContentDescription("edit");
                     String value =  input_workplace.getText().toString();
                     updateDbProfileDtails(4,value); }}});
 
 
-        relationship_dropInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+        input_relationship_dropdown.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
             @Override
-            public void onClick(View v) {
-                if(relationship_dropInputLayout.getEndIconContentDescription().equals("edit")){
-                    input_relationship_drop.setFocusable(true);
-                    relationship_dropInputLayout.setEndIconDrawable(R.drawable.baseline_done_outline_24);
-                    relationship_dropInputLayout.setEndIconContentDescription("update");
-                }else if(relationship_dropInputLayout.getEndIconContentDescription().equals("update")) {
-                    input_relationship_drop.setFocusable(false);
-                    relationship_dropInputLayout.setEndIconDrawable(R.drawable.icon_textedit);
-                    relationship_dropInputLayout.setEndIconContentDescription("edit");
-                    String value =  input_relationship_drop.getText().toString();
-                    updateDbProfileDtails(5,value); }}});
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String value =  adapter.getItem(position).toString();
+                updateDbProfileDtails(5,value); }
+        });
 
     }
-
 
 
     public void updateImage(View view) {
@@ -240,31 +264,35 @@ public class MyAccountActivity extends AppCompatActivity {
         EditText input_name = (EditText)findViewById(R.id.input_name);
         EditText input_lives_drop = (EditText)findViewById(R.id.input_lives_drop);
         EditText input_workplace = (EditText)findViewById(R.id.input_workplace);
-        EditText input_relationship_drop = (EditText)findViewById(R.id.input_relationship_drop);
+        AutoCompleteTextView input_relationship_dropdown = (AutoCompleteTextView)findViewById(R.id.input_relationship_dropdown);
         CircleImageView profile_image = (CircleImageView)findViewById(R.id.profile_image);
 
 
         if(userdata.getId()!=null){
 
             if(userdata.getDescription()==null){
-                input_about.setHint("Describe Yourself");
+                input_about.setHint("Update Describe Yourself");
             }else input_about.setText(userdata.getDescription());
 
             if(userdata.getFullName()==null){
-               input_name.setHint("Full Name");
+               input_name.setHint("Update Full Name");
             }else input_name.setText(userdata.getFullName());
 
             if(userdata.getLocation()==null){
-                input_lives_drop.setHint("Location");
-            }else  input_lives_drop.setText(userdata.getLocation());
+                input_lives_drop.setHint("Update Location");
+            }else {
+                input_lives_drop.setHint(userdata.getLocation());
+            }
 
             if(userdata.getWorkPlace()==null){
-                input_workplace.setHint("Work Place");
+                input_workplace.setHint("Update Work Place");
             }else  input_workplace.setText(userdata.getWorkPlace());
 
             if(userdata.getRelationshipStatus()==null){
-                input_relationship_drop.setHint("Relationship");
-            }else  input_relationship_drop.setText(userdata.getRelationshipStatus());
+                input_relationship_dropdown.setHint("Update Relationship Status");
+            }else {
+                input_relationship_dropdown.setHint(userdata.getRelationshipStatus());
+            }
 
 
             //image decorde

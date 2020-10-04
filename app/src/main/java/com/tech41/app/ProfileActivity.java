@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             Log.d("","friend profile details not updated yet");
         }else
-        username.setText(userFriend.getFriend().getUserName());
+        username.setText(userFriend.getFriend().getFullName());
         about.setText(userFriend.getFriend().getDescription());
         lives.setText(userFriend.getFriend().getLocation());
         workplace.setText(userFriend.getFriend().getWorkPlace());

@@ -4,21 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context=".MyAccountActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/aboutInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
+        app:boxBackgroundMode="none"
         app:endIconCheckable="true"
         app:endIconContentDescription="edit"
         app:endIconDrawable="@drawable/icon_textedit"
@@ -47,95 +44,58 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lives_drop_InputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:textColorHint="@color/fontLightGray"
-        android:textSize="16dp"
-        app:endIconCheckable="true"
-        app:endIconContentDescription="edit"
-        app:endIconDrawable="@drawable/icon_textedit"
-        app:endIconMode="custom"
-        app:layout_constraintBottom_toTopOf="@+id/workplace_InputLayout"
-        app:startIconDrawable="@drawable/location_icon"
-        tools:layout_editor_absoluteX="0dp">
-
-        <EditText
-            android:id="@+id/input_lives_drop"
-            android:layout_width="350dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="364dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/gray_input_field"
-            android:drawablePadding="10dp"
-            android:focusable="false"
-            android:fontFamily="@font/regular"
-            android:hint=""
-            android:inputType="text"
-            android:selectAllOnFocus="true"
-            android:textColorHint="@color/fontLightGray"
-            android:textSize="16dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColorHint="@color/fontLightGray"
-        android:textSize="16dp"
+        android:gravity="center_horizontal"
+        app:boxBackgroundMode="none"
+        android:layout_marginTop="15dp"
         app:endIconCheckable="true"
         app:endIconContentDescription="edit"
         app:endIconDrawable="@drawable/icon_textedit"
         app:endIconMode="custom"
-        app:layout_constraintBottom_toTopOf="@+id/lives_drop_InputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/aboutInputLayout"
         app:startIconDrawable="@drawable/user_icon"
         tools:layout_editor_absoluteX="16dp">
 
         <EditText
             android:id="@+id/input_name"
             android:layout_width="350dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="50dp"
             android:background="@drawable/gray_input_field"
             android:drawablePadding="10dp"
             android:focusable="false"
             android:fontFamily="@font/regular"
-            android:hint=""
+            android:gravity="center_vertical"
             android:inputType="text"
             android:selectAllOnFocus="true"
             android:textColorHint="@color/fontLightGray"
-            android:textSize="16dp" />
-
+            android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/workplace_InputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
         app:endIconCheckable="true"
         app:endIconContentDescription="edit"
         app:endIconDrawable="@drawable/icon_textedit"
         app:endIconMode="custom"
-        app:layout_constraintBottom_toTopOf="@+id/relationship_drop_InputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/lives_drop_InputLayout"
         app:startIconDrawable="@drawable/bag_icon"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="-16dp">
 
         <EditText
             android:id="@+id/input_workplace"
             android:layout_width="352dp"
-            android:layout_height="43dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="50dp"
             android:background="@drawable/gray_input_field"
             android:drawableLeft="@drawable/bag_icon"
             android:drawablePadding="10dp"
@@ -152,42 +112,72 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/relationship_drop_InputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="80dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusTopEnd="21dp"
+        app:boxCornerRadiusBottomStart="21dp"
+        app:boxCornerRadiusTopStart="21dp"
+        android:layout_marginTop="10dp"
+        app:boxCornerRadiusBottomEnd="21dp"
         android:gravity="center"
+        app:boxBackgroundMode="outline"
         android:textColorHint="@color/fontLightGray"
         android:textSize="16dp"
-        app:endIconCheckable="true"
-        app:endIconContentDescription="edit"
-        app:endIconDrawable="@drawable/icon_textedit"
-        app:endIconMode="custom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:startIconDrawable="@drawable/bag_icon"
+        app:endIconMode="dropdown_menu"
+        app:layout_constraintTop_toBottomOf="@+id/workplace_InputLayout"
+        app:startIconDrawable="@drawable/relationship_icon"
         tools:layout_editor_absoluteX="0dp">
 
-        <EditText
-            android:id="@+id/input_relationship_drop"
-            android:layout_width="350dp"
-            android:layout_height="43dp"
-            android:layout_marginBottom="36dp"
+        <AutoCompleteTextView
             android:background="@drawable/gray_input_field"
-            android:drawableLeft="@drawable/relationship_icon"
-            android:drawablePadding="10dp"
-            android:focusable="false"
-            android:fontFamily="@font/regular"
-            android:hint=""
+            android:id="@+id/input_relationship_dropdown"
+            android:layout_width="352dp"
+            android:layout_height="50dp"
             android:inputType="text"
-            android:selectAllOnFocus="true"
-            android:textColorHint="@color/fontLightGray"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:hint=""
+            android:textColorHint="@color/fontBlack"
+            android:focusable="false"
+            android:fontFamily="@font/regular"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lives_drop_InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:textColorHint="@color/fontLightGray"
+        android:textSize="16dp"
+        app:endIconMode="dropdown_menu"
+        app:boxBackgroundMode="outline"
+        app:endIconCheckable="true"
+        app:layout_constraintTop_toBottomOf="@+id/nameInputLayout"
+        app:startIconDrawable="@drawable/location_icon"
+        tools:layout_editor_absoluteX="-1dp">
+
+        <AutoCompleteTextView
+            android:background="@drawable/gray_input_field"
+            android:id="@+id/input_lives_drop"
+            android:layout_width="352dp"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint=""
+            android:textColorHint="@color/fontBlack"
+            android:focusable="false"
+            android:fontFamily="@font/regular"/>
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="181dp"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/button"
         android:onClick="Logout"
@@ -203,7 +193,7 @@
         android:id="@+id/profile_image"
         android:layout_width="154dp"
         android:layout_height="154dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:onClick="updateImage"
         android:src="@drawable/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
@@ -263,8 +253,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_btn"
         android:onClick="moveToMainActivity"/>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
