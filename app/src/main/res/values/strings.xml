@@ -17,7 +17,9 @@
     <string name="regis_pass">"Password"</string>
     <string name="regis_comPass">"Confirm password"</string>
     <string name="title_activity_home"></string>
-    <string name="action_settings">Settings</string>
+    <string name="settings_pwd_equal">password match</string>
+    <string name="settings_pwd_not_equal">The password you entered do not match </string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

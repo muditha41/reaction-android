@@ -20,8 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tech41.app.Fragments.FriendsFragment;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.TblRequests;
@@ -30,6 +33,9 @@ import com.tech41.app.Model.userStatusUpdate;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.tech41.app.R.layout.*;
+import static com.tech41.app.R.layout.emoji_selector_dialog;
 
 public class StatusActivity extends AppCompatActivity implements SelectorDialog.SelectorDialogListner {
 
@@ -44,10 +50,23 @@ public class StatusActivity extends AppCompatActivity implements SelectorDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status);
+        setContentView(activity_status);
 
         getStatusViewData();
+        ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
+
+
+
+        user_status_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                openDialog();
+            }
+        });
     }
+
+
 
     //dialogbox create
     public void openDialog(){
@@ -64,14 +83,6 @@ public void getStatusViewData(){
     ImageView friend_status_img =(ImageView)findViewById(R.id.friend_status_img);
     ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
     CircleImageView profile_image = (CircleImageView)findViewById(R.id.profile_image);
-
-    user_status_img.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view)
-        {
-            openDialog();
-        }
-    });
 
     Intent intent = getIntent();
     userFriend = (TblFriends) intent.getSerializableExtra("userFriend");

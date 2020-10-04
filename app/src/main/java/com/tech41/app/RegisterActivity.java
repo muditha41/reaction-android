@@ -7,10 +7,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,8 +43,9 @@ public class RegisterActivity extends AppCompatActivity {
     Api api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    EditText Username,Email, Password;
+    EditText Username,Email, Password,com_password;
     Button button;
+    TextView error_txt;
     Timer timer;
 
     @Override
@@ -59,8 +63,26 @@ public class RegisterActivity extends AppCompatActivity {
         Username = (EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
         Email = (EditText) findViewById(R.id.email) ;
-
+        com_password = (EditText)findViewById(R.id.com_password) ;
         button=(Button) findViewById(R.id.btn_register);
+        error_txt=(TextView)findViewById(R.id.error_txt);
+
+        com_password.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                String strPass1 = Password.getText().toString();
+                String strPass2 = com_password.getText().toString();
+                if (strPass1.equals(strPass2)) {
+                   error_txt.setText(R.string.settings_pwd_equal);
+                   error_txt.setVisibility(View.GONE);
+                } else {
+                    error_txt.setVisibility(View.VISIBLE);
+                    error_txt.setText(R.string.settings_pwd_not_equal);
+                }
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
 
 
         button.setOnClickListener(new View.OnClickListener() {

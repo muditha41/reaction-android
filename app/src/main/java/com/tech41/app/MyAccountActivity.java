@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -271,7 +272,7 @@ public class MyAccountActivity extends AppCompatActivity {
         if(userdata.getId()!=null){
 
             if(userdata.getDescription()==null){
-                input_about.setHint("Update Describe Yourself");
+                input_about.setHint("Describe Yourself");
             }else input_about.setText(userdata.getDescription());
 
             if(userdata.getFullName()==null){
@@ -279,6 +280,7 @@ public class MyAccountActivity extends AppCompatActivity {
             }else input_name.setText(userdata.getFullName());
 
             if(userdata.getLocation()==null){
+                input_lives_drop.setHintTextColor(getResources().getColor(R.color.fontLightGray));
                 input_lives_drop.setHint("Update Location");
             }else {
                 input_lives_drop.setHint(userdata.getLocation());
@@ -289,6 +291,7 @@ public class MyAccountActivity extends AppCompatActivity {
             }else  input_workplace.setText(userdata.getWorkPlace());
 
             if(userdata.getRelationshipStatus()==null){
+                input_relationship_dropdown.setHintTextColor(getResources().getColor(R.color.fontLightGray));
                 input_relationship_dropdown.setHint("Update Relationship Status");
             }else {
                 input_relationship_dropdown.setHint(userdata.getRelationshipStatus());

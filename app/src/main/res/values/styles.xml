@@ -25,5 +25,15 @@
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
 
+    <style name="MyCustomTheme" parent="Theme.AppCompat.Light.Dialog.Alert">>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+
+
 
 </resources>

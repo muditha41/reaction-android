@@ -8,12 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Fragments.FriendsFragment;
 import com.tech41.app.Model.ResponseError;
@@ -49,14 +55,15 @@ public class SelectorDialog extends AppCompatDialogFragment {
     private Context context;
     private CarouselPicker imageCarousel;
     private TextView tvSelectedItem;
-    private ImageView user_status_img;
-    private Button btn_request_send;
+    private ImageView user_status_img,close_btn;
+    private Button btn_Save;
     SharedPreferences preferences;
     private TblFriends userfriend;
     private static String selected_icon;
     Timer timer;
     private SelectorDialogListner listner;
     FriendsFragment friendsFragment;
+
 
     public SelectorDialog( TblFriends userfriend) {
          this.userfriend=userfriend;
@@ -65,8 +72,10 @@ public class SelectorDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+
+
+       final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(),R.style.MyCustomTheme);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.emoji_selector_dialog,null);
 
@@ -77,24 +86,27 @@ public class SelectorDialog extends AppCompatDialogFragment {
         imageCarousel = view.findViewById(R.id.imageCarousel);
         tvSelectedItem = view.findViewById(R.id.tvSelectedItem);
         user_status_img = view.findViewById(R.id.user_status_img);
-        btn_request_send=(Button) view.findViewById(R.id.btn_request_send);
+        btn_Save=(Button) view.findViewById(R.id.btn_Save);
+        close_btn=view.findViewById(R.id.close_btn);
 
-        builder.setView(view)
-                .setTitle("")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        btn_Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    }
-                })
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                statusUpdate(id);
+                listner.applyTexts(selected_icon);
+                bottomSheetDialog.dismiss();
+            }
+        });
 
-                        statusUpdate(id);
-                        listner.applyTexts(selected_icon);
-                    }
-                });
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               bottomSheetDialog.dismiss();
+            }
+        });
+
+
 
         List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.emoji_happy));//0
@@ -105,6 +117,8 @@ public class SelectorDialog extends AppCompatDialogFragment {
 
         CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(getContext(), imageItems, 0);
         imageCarousel.setAdapter(imageAdapter);
+
+        imageCarousel.animate();
 
         imageCarousel.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -147,7 +161,9 @@ public class SelectorDialog extends AppCompatDialogFragment {
             }
         });
 
-        return builder.create();
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+        return bottomSheetDialog;
     }
 
     @Override
@@ -177,6 +193,8 @@ public class SelectorDialog extends AppCompatDialogFragment {
             @Override
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
+
+
                 }
                 else
                     try {
@@ -190,5 +208,17 @@ public class SelectorDialog extends AppCompatDialogFragment {
                 Log.e("Error",t.getLocalizedMessage());
             }
         });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
+
+        FrameLayout bottomSheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setPeekHeight(0);
     }
 }

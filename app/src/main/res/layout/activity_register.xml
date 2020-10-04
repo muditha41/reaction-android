@@ -111,6 +111,22 @@
         app:layout_constraintVertical_bias="0.05" />
 
 
+    <TextView
+        android:id="@+id/error_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/regular"
+        android:gravity="left"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="12dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/com_password" />
+
     <Button
         android:id="@+id/btn_register"
         android:layout_width="181dp"
