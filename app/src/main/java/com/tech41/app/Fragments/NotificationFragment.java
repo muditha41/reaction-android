@@ -78,8 +78,6 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
 
-                // API not found method error
-
                 Api api = RetrofitClient.getInstance().create(Api.class);
                 Call<ResponseError> call = api.checkNotifications("Bearer "+token,uId);
                 call.enqueue(new Callback<ResponseError>() {
@@ -87,6 +85,7 @@ public class NotificationFragment extends Fragment {
                     public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                         if (response.isSuccessful()) {
                             notificationAdapter.notifyDataSetChanged();
+                            getNotification();
                         }
                         else
                             try {

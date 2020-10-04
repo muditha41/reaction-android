@@ -12,6 +12,7 @@
         android:id="@+id/layout_fill_form"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_gravity="center"
         android:layout_width="350dp"
         android:layout_height="400dp"
         android:background="@drawable/dialog_background">

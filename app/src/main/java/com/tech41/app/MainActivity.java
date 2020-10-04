@@ -24,6 +24,8 @@ package com.tech41.app;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.View.OnClickListener;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.LinearLayout;
@@ -60,7 +62,7 @@ package com.tech41.app;
 public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
-    TextView tab_title,notificationNumber;
+    TextView tab_title;
     SharedPreferences preferences;
     private static final String TAG = "MainActivity";
     Timer timer;
@@ -68,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     public static String uId;
     public static String token;
-    MyAccountActivity myAccountActivity;
-    JWTUtils jwtUtils;
-    TokenManager tokenManager;
+  //  MyAccountActivity myAccountActivity;
+  //  JWTUtils jwtUtils;
+  //  TokenManager tokenManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
         tab_title =(TextView)findViewById(R.id.tab_title);
         profile_image = findViewById(R.id.profile_image);
         notificationCounter = new NotificationCounter(findViewById(R.id.bell));
-        notificationNumber=(TextView)findViewById(R.id.notificationNumber);
+
+        notificationCounter.NotificationCount();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -216,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addFriendDilaog(){
-
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.addfriend_dialog,null);
 
@@ -226,12 +230,10 @@ public class MainActivity extends AppCompatActivity {
         EditText frnd_email = view.findViewById(R.id.frnd_email);
         TextView msg_txt = view.findViewById(R.id.msg_txt);
 
-
         // friends invite
         btn_Invite.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final android.app.AlertDialog dialog = new SpotsDialog.Builder()
                         .setContext(MainActivity.this)
                         .build();

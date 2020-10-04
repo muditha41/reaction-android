@@ -71,6 +71,10 @@ public interface Api {
    @PUT("/Account/{uid}/notificationchecked")
    Call<ResponseError> checkNotifications(@Header("Authorization")String authToken,@Path("uid") String uid);
 
+   @Headers({ "Content-Type: application/json;charset=UTF-8"})
+   @GET("/Account/{uid}/notificationCount")
+   Call<String> getNotificationCount(@Header("Authorization")String authToken, @Path("uid") String uid);
+
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("/Account/updateimage")
     Call<ResponseError> updateimage(@Header("Authorization")String authToken,  @Body ImageUpdate imageUpdate);
@@ -82,5 +86,7 @@ public interface Api {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("/Account/updatedetails")
     Call<ResponseError> updateUserDetails(@Header("Authorization")String authToken,  @Body UserUpdate userUpdate);
+
+
 
 }
