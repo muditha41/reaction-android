@@ -1,5 +1,8 @@
 package com.tech41.app.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.EventLogTags;
 
 import com.google.gson.annotations.SerializedName;
@@ -17,8 +20,11 @@ public class user implements Serializable {
     private String workPlace=null;
     private String relationshipStatus=null;
     private String image;
+    private byte[] imageByte;
 
-    public user(String id, String userName, String fullName, String email, String description, String location, String workPlace, String relationshipStatus, String image, String text) {
+
+
+    public user(String id, String userName, String fullName, String email, String description, String location, String workPlace, String relationshipStatus, String image, byte[] imageByte, String text) {
         this.id = id;
         this.userName = userName;
         this.fullName = fullName;
@@ -28,6 +34,15 @@ public class user implements Serializable {
         this.workPlace = workPlace;
         this.relationshipStatus = relationshipStatus;
         this.image = image;
+        this.imageByte = imageByte;
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -94,7 +109,6 @@ public class user implements Serializable {
     public void setRelationshipStatus(String relationshipStatus) {
         this.relationshipStatus = relationshipStatus;
     }
-
     public String getImage() {
         return image;
     }
@@ -103,6 +117,20 @@ public class user implements Serializable {
         this.image = image;
     }
 
+    public byte[] getImageByte() {
+        return imageByte;
+    }
+
+    public void setImageByte(byte[] imageByte) {
+        this.imageByte = imageByte;
+    }
+
+    public void convertToByte(){
+        if(image!=null){
+            byte[] decoded = Base64.decode(image, Base64.DEFAULT);
+            this.setImageByte(decoded);
+          }
+        }
 
     @SerializedName("body")
     private String text;

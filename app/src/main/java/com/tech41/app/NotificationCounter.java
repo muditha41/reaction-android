@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.tech41.app.Adapter.NotificationAdapter;
 import com.tech41.app.Model.ResponseError;
 import com.tech41.app.Model.TblFriends;
@@ -29,12 +31,14 @@ import static com.tech41.app.MainActivity.uId;
 public class NotificationCounter {
 
     private TextView notificationNumber;
+    private CardView notificationNumberContainer;
     private final int MAX_NUBER = 99;
     private String notification_number_counter ;
     NotificationAdapter notificationAdapter;
 
     public NotificationCounter(View view){
         notificationNumber =view.findViewById(R.id.notificationNumber);
+        notificationNumberContainer = view.findViewById(R.id.notificationNumberContainer);
     }
 
     public NotificationCounter(TextView notificationNumber, String notification_number_counter) {
@@ -54,6 +58,8 @@ public class NotificationCounter {
                 }
                 else
                     try {
+                        notificationNumberContainer.setVisibility(View.GONE);
+                        notificationNumber.setVisibility(View.GONE);
                         JSONObject obj = new JSONObject(response.errorBody().string());
                         String e = (obj.getString("message"));
                     } catch (Exception e) { }

@@ -39,10 +39,10 @@ public void createLoginSession(String keyName,String payload) throws JSONExcepti
 }
 
 public String getSession(){
-        return preferences.getString(KeyName,"0");
+        return preferences.getString(KeyName,null);
 }
 
-public void removeSession(){ editor.putString(KeyName,"0").commit();}
+public void removeSession(){ editor.putString(KeyName,null).commit();}
 
 public String getUserId(){
     return preferences.getString(Id,"");

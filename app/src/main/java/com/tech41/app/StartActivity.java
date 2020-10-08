@@ -36,12 +36,12 @@ public class StartActivity extends AppCompatActivity {
     }
 
         @RequiresApi(api = Build.VERSION_CODES.O)
-        private void checkSession() throws Exception {
+        public void checkSession() throws Exception {
             //check session
             this.tokenManager = new TokenManager(StartActivity.this);
             String KeyName = tokenManager.getSession();
 
-            if(KeyName!="0"){
+            if(KeyName!=null){
                 tokenManager.createLoginSession(KeyName, JWTUtils.decordeJWT(KeyName));
                 moveToMainActivity();
             }else {

@@ -2,6 +2,7 @@ package com.tech41.app;
 
         import androidx.annotation.NonNull;
         import androidx.annotation.Nullable;
+        import androidx.annotation.RequiresApi;
         import androidx.appcompat.app.AlertDialog;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.appcompat.widget.Toolbar;
@@ -17,6 +18,7 @@ package com.tech41.app;
         import android.graphics.BitmapFactory;
         import android.graphics.Color;
         import android.graphics.drawable.ColorDrawable;
+        import android.os.Build;
         import android.os.Bundle;
         import android.preference.PreferenceManager;
         import android.util.Base64;
@@ -49,13 +51,11 @@ package com.tech41.app;
         import java.util.Timer;
         import java.util.TimerTask;
         import java.util.jar.Manifest;
-
         import de.hdodenhof.circleimageview.CircleImageView;
         import dmax.dialog.SpotsDialog;
         import retrofit2.Call;
         import retrofit2.Callback;
         import retrofit2.Response;
-
         import static com.tech41.app.MainActivity.token;
 
 
@@ -64,21 +64,43 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView profile_image;
     TextView tab_title;
     SharedPreferences preferences;
-    private static final String TAG = "MainActivity";
+   // private static final String TAG = "MainActivity";
     Timer timer;
     NotificationCounter notificationCounter;
-    Context context;
     public static String uId;
     public static String token;
-  //  MyAccountActivity myAccountActivity;
-  //  JWTUtils jwtUtils;
-  //  TokenManager tokenManager;
+    TokenManager tokenManager;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            checkSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void checkSession() throws Exception {
+        //check session
+        this.tokenManager = new TokenManager(MainActivity.this);
+        String KeyName = tokenManager.getSession();
+
+        if(KeyName!=null){
+        }else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences = getSharedPreferences("JWTTOKEN", Context.MODE_PRIVATE);

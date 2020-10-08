@@ -1,9 +1,7 @@
 package com.tech41.app;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,36 +24,26 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tech41.app.Fragments.FriendsFragment;
-import com.tech41.app.Model.TblFriends;
+import com.tech41.app.Model.StatusIntent;
 import com.tech41.app.Model.TblRequests;
 import com.tech41.app.Model.userStatusUpdate;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-
 import static com.tech41.app.R.layout.*;
 import static com.tech41.app.R.layout.emoji_selector_dialog;
 
 public class StatusActivity extends AppCompatActivity implements SelectorDialog.SelectorDialogListner {
 
-    private Context context;
-    SharedPreferences preferences;
-    private TblFriends userFriend;
+    private StatusIntent userFriend;
 
-    public StatusActivity(  ) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_status);
 
-        getStatusViewData();
+       getStatusViewData();
         ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
-
-
 
         user_status_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +53,6 @@ public class StatusActivity extends AppCompatActivity implements SelectorDialog.
             }
         });
     }
-
 
 
     //dialogbox create
@@ -79,25 +66,23 @@ public void getStatusViewData(){
     TextView friend_name = (TextView)findViewById(R.id.friend_name);
     TextView friend_status_id = (TextView)findViewById(R.id.friend_status_id);
     TextView user_status_id = (TextView)findViewById(R.id.user_status_id);
-  //  LottieAnimationView friend_status_image = (LottieAnimationView)findViewById(R.id.friend_status_image);
     ImageView friend_status_img =(ImageView)findViewById(R.id.friend_status_img);
     ImageView user_status_img =(ImageView)findViewById(R.id.user_status_img);
     CircleImageView profile_image = (CircleImageView)findViewById(R.id.profile_image);
 
     Intent intent = getIntent();
-    userFriend = (TblFriends) intent.getSerializableExtra("userFriend");
-         friend_name.setText(userFriend.getFriend().getUserName()+"'s  status");
-         user_status_id.setText("Only "+userFriend.getFriend().getUserName()+" can see your status.");
-         String friend_status = userFriend.getUserStatus().getFriendStatus().getName();
-         String user_status = userFriend.getUserStatus().getStatus().getName();
-         String user_status_img_url = userFriend.getUserStatus().getStatus().getImage();
-         String friend_status_img_url = userFriend.getUserStatus().getFriendStatus().getImage();
+    userFriend = (StatusIntent) intent.getSerializableExtra("userFriend");
+    friend_name.setText(userFriend.getFriend_userName()+"'s  status");
+    user_status_id.setText("Only "+userFriend.getFriend_userName()+" can see your status.");
+    String friend_status = userFriend.getUserStatus().getFriendStatus().getName();
+    String user_status = userFriend.getUserStatus().getStatus().getName();
+    String user_status_img_url = userFriend.getUserStatus().getStatus().getImage();
+    String friend_status_img_url = userFriend.getUserStatus().getFriendStatus().getImage();
 
-    //image decorde
-    if(userFriend.getFriend().getImage()!=null) {
-        String imgString = userFriend.getFriend().getImage();
-        byte[] decoded = Base64.decode(imgString, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+  //  image decorde
+    if(userFriend.getFriend_imageByte()!=null ){
+        byte[] decoded = userFriend.getFriend_imageByte();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
         profile_image.setImageBitmap(bitmap);
     }else {
         profile_image.setImageResource(R.drawable.ic_launcher_round);
@@ -106,7 +91,7 @@ public void getStatusViewData(){
     // Friend Status part
        if(friend_status_img_url.equals("Empty")){
         friend_status_img.setImageResource(R.drawable.empty_face);
-        friend_status_id.setText(userFriend.getFriend().getUserName()+" hasn't updated yet.");
+        friend_status_id.setText(userFriend.getFriend_userName()+" hasn't updated yet.");
     }else {
         Resources res = getResources();
         int resourceId = res.getIdentifier(
@@ -117,7 +102,7 @@ public void getStatusViewData(){
     // User Status part
         if(user_status_img_url.equals("Empty")){
         user_status_img.setImageResource(R.drawable.empty_face);
-        user_status_id.setText(userFriend.getFriend().getUserName()+" hasn't updated yet.");
+        user_status_id.setText(userFriend.getUser_userName()+" hasn't updated yet.");
     } else {
         Resources res = getResources();
         int resourceId = res.getIdentifier(

@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText Username,Email, Password,com_password;
     Button button;
-    TextView error_txt;
+   private TextView error_txt;
     Timer timer;
 
     @Override

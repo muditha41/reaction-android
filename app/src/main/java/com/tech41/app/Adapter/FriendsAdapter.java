@@ -23,8 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tech41.app.Model.Invitation;
 import com.tech41.app.Model.ResponseError;
+import com.tech41.app.Model.StatusIntent;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.user;
+import com.tech41.app.Model.userStatus;
 import com.tech41.app.Model.userStatusUpdate;
 import com.tech41.app.MyAccountActivity;
 import com.tech41.app.R;
@@ -73,37 +75,39 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         String username = tblFriends.getFriend().getUserName();
         String second_text = tblFriends.getUserStatus().getStatusState();
         String time_text = tblFriends.getUserStatus().getTime();
-
+        tblFriends.getFriend().convertToByte();
         //image decorde
-        if(tblFriends.getFriend().getImage()!=null) {
-            String imgString = tblFriends.getFriend().getImage();
-            byte[] decoded = Base64.decode(imgString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+        if(tblFriends.getFriend().getImageByte()!=null) {
+            byte[] decoded = tblFriends.getFriend().getImageByte();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decoded , 0, decoded .length);
             holder.profile_image.setImageBitmap(bitmap);
         }else {
             holder.profile_image.setImageResource(R.drawable.ic_launcher_round);
         }
 
         holder.username.setText(username);
-        holder.second_text.setText(second_text);
         holder.time_text.setText(time_text);
+      //  holder.second_text.setText(second_text);
 
 
         // message status and icons
         if(second_text != null) {
             if (second_text.equals("New Status")) {
+                holder.second_text.setText(second_text);
                 holder.new_satatus_icon.setVisibility(View.VISIBLE);
                 holder.time_text.setTextColor(Color.parseColor("#9760C6"));
                 holder.second_text.setCompoundDrawables(null, null, null, null);
             } else if (second_text.equals("Replied")) {
-
+                holder.second_text.setText(second_text);
                 holder.new_satatus_icon.setVisibility(View.GONE);
             } else {
+                holder.second_text.setText(second_text);
                 holder.second_text.setCompoundDrawables(null, null, null, null);
                 holder.new_satatus_icon.setVisibility(View.GONE);
             }
         }else {
             holder.second_text.setVisibility(View.GONE);
+            holder.second_text.setCompoundDrawables(null, null, null, null);
             holder.second_text.setText("New Friend");
             holder.new_satatus_icon.setVisibility(View.GONE);
         }
@@ -111,8 +115,25 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(context, StatusActivity.class);
-                    intent.putExtra("userFriend", tblFriends);
+
+                StatusIntent statusIntent = new StatusIntent(
+                tblFriends.getFriendId(),
+                tblFriends.getUserId(),
+                tblFriends.getUser().getUserName(),
+                tblFriends.getUser().getImageByte(),
+                tblFriends.getFriend().getUserName(),
+                tblFriends.getFriend().getImageByte(),
+                tblFriends.getFriend().getFullName(),
+                tblFriends.getFriend().getDescription(),
+                tblFriends.getFriend().getLocation(),
+                tblFriends.getFriend().getWorkPlace(),
+                tblFriends.getFriend().getRelationshipStatus(),
+                tblFriends.getInviteStatus(),
+                tblFriends.getUserStatus()
+                );
+
+                  Intent intent = new Intent(context, StatusActivity.class);
+                  intent.putExtra("userFriend", statusIntent);
                     context.startActivity(intent);
 
                 //status state check

@@ -75,6 +75,31 @@ public class MyAccountActivity extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            checkSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void checkSession() throws Exception {
+        //check session
+        this.tokenManager = new TokenManager(MyAccountActivity.this);
+        String KeyName = tokenManager.getSession();
+
+        if(KeyName!=null){
+        }else {
+            Intent intent = new Intent(MyAccountActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +138,7 @@ public class MyAccountActivity extends AppCompatActivity {
                 "Colombo",
                 "Kandy",
                 "Galle",
+                "kegalle",
                 "Gampaha"
         };
 
@@ -298,7 +324,6 @@ public class MyAccountActivity extends AppCompatActivity {
             }
 
 
-            //image decorde
             if(userdata.getImage()!=null){
                 String imgString = userdata.getImage() ;
                 byte[] decoded = Base64.decode(imgString,Base64.DEFAULT);

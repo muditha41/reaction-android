@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tech41.app.Model.StatusIntent;
 import com.tech41.app.Model.TblFriends;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -19,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     private Context context;
-    private TblFriends userFriend;
+    private StatusIntent userFriend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,21 +40,20 @@ public class ProfileActivity extends AppCompatActivity {
         CircleImageView profile_image = (CircleImageView)findViewById(R.id.profile_image);
 
         Intent intent = getIntent();
-        userFriend = (TblFriends) intent.getSerializableExtra("friendProfile");
+        userFriend = (StatusIntent) intent.getSerializableExtra("friendProfile");
         if(userFriend.getFriendId().equals(null)){
 
             Log.d("","friend profile details not updated yet");
         }else
-        username.setText(userFriend.getFriend().getFullName());
-        about.setText(userFriend.getFriend().getDescription());
-        lives.setText(userFriend.getFriend().getLocation());
-        workplace.setText(userFriend.getFriend().getWorkPlace());
-        relationship_state.setText(userFriend.getFriend().getRelationshipStatus());
+        username.setText(userFriend.getFriend_fullName());
+        about.setText(userFriend.getFriend_description());
+        lives.setText(userFriend.getFriend_location());
+        workplace.setText(userFriend.getFriend_workPlace());
+        relationship_state.setText(userFriend.getFriend_relationshipStatus());
 
         //image decorde
-        if(userFriend.getFriend().getImage()!=null) {
-            String imgString = userFriend.getFriend().getImage();
-            byte[] decoded = Base64.decode(imgString, Base64.DEFAULT);
+        if(userFriend.getFriend_imageByte()!=null) {
+            byte[] decoded = userFriend.getFriend_imageByte();
             Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
             profile_image.setImageBitmap(bitmap);
         }else {

@@ -14,14 +14,13 @@ public class userStatus implements Serializable {
     private int friendStatusId;
     private String friendStatusTimeStamp;
     private Status friendStatus;
-    private String userFriend;
     private String time;
 
 
     public userStatus() {
     }
 
-    public userStatus(int userStatusId, int statusId, String statusTimeStamp, String statusState, Status status, int friendStatusId, String friendStatusTimeStamp, Status friendStatus, String userFriend, String time) {
+    public userStatus(int userStatusId, int statusId, String statusTimeStamp, String statusState, Status status, int friendStatusId, String friendStatusTimeStamp, Status friendStatus, String time) {
         this.userStatusId = userStatusId;
         this.statusId = statusId;
         this.statusTimeStamp = statusTimeStamp;
@@ -30,7 +29,6 @@ public class userStatus implements Serializable {
         this.friendStatusId = friendStatusId;
         this.friendStatusTimeStamp = friendStatusTimeStamp;
         this.friendStatus = friendStatus;
-        this.userFriend = userFriend;
         this.time = time;
     }
 
@@ -98,13 +96,6 @@ public class userStatus implements Serializable {
         this.friendStatus = friendStatus;
     }
 
-    public String getUserFriend() {
-        return userFriend;
-    }
-
-    public void setUserFriend(String userFriend) {
-        this.userFriend = userFriend;
-    }
 
     public String getTime() {
         return time;

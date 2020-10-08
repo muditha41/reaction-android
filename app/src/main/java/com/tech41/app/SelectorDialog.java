@@ -30,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tech41.app.Adapter.FriendsAdapter;
 import com.tech41.app.Fragments.FriendsFragment;
 import com.tech41.app.Model.ResponseError;
+import com.tech41.app.Model.StatusIntent;
 import com.tech41.app.Model.TblFriends;
 import com.tech41.app.Model.userStatusUpdate;
 import com.tech41.app.R;
@@ -58,14 +59,14 @@ public class SelectorDialog extends AppCompatDialogFragment {
     private ImageView user_status_img,close_btn;
     private Button btn_Save;
     SharedPreferences preferences;
-    private TblFriends userfriend;
+    private StatusIntent userfriend;
     private static String selected_icon;
     Timer timer;
     private SelectorDialogListner listner;
     FriendsFragment friendsFragment;
 
 
-    public SelectorDialog( TblFriends userfriend) {
+    public SelectorDialog(StatusIntent userfriend) {
          this.userfriend=userfriend;
     }
 
