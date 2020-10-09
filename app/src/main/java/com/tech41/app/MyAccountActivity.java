@@ -220,14 +220,6 @@ public class MyAccountActivity extends AppCompatActivity {
 
     }
 
-
-    public void updateImage(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(Intent.createChooser(intent,"ACCESS"),ACCESS_FILE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -372,7 +364,7 @@ public class MyAccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseError> call, Response<ResponseError> response) {
                 if (response.isSuccessful()) {
-                    Log.d("result","image upload success");
+                    Log.d("result","Updated!");
                 }
                 else
                     try {
@@ -418,4 +410,10 @@ public class MyAccountActivity extends AppCompatActivity {
         });
     }
 
+    public void changeImage(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_PICK);
+        startActivityForResult(Intent.createChooser(intent,"ACCESS"),ACCESS_FILE);
+    }
 }
